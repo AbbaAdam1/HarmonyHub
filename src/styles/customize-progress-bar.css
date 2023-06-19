@@ -1,0 +1,14 @@
+.range-slider::-webkit-slider-runnable-track {
+  background-color: #f50;
+  width: var(--range-progress);
+  /* Add any additional styles for the range input track */
+}
+
+/* Add any other custom styles you need */
+
+/* Example styles for the time span */
+.time {
+  color: #333;
+  font-size: 13px;
+  line-height: 46px;
+}
