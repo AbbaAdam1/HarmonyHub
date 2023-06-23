@@ -10,9 +10,9 @@ import kids from '../../public/images/heartbeatthumb.jpg';
 
 export const tracks = [
   {
-    title: 'Kero Kero Bonito – Heartbeat (Late of the Pier Cover)',
-    //src: heartbeat,
+    title: 'Heartbeat',
+    src: "./audio/Heartbeat.mp3",
     author: 'Kero Kero Bonito',
-    thumbnail: kids,
+    thumbnail: "./images/heartbeatthumb.jpg",
   },
 ];

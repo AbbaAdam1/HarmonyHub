@@ -17,10 +17,18 @@ export default function Home() {
         src="./images/graduation.jpg"
       />
 
+<button type="button" onClick={() => alert('Hello world!')}>
+  Click Me!
+</button>
+
+
       <AudioPlayer />
 
 
 
+<button type="button" onClick={() => alert('Hello world!')}>
+  Click Me!
+</button>
 
 
 

@@ -1,11 +1,37 @@
 import "../styles/customize-progress-bar.css"
+import NoSSRWrapper from "./no-ssr-wrapper";
 
-const ProgressBar = () => {
+const ProgressBar = ({
+  progressBarRef,
+  audioRef,
+  timeProgress,
+  duration,
+  }) => {
+      const handleProgressChange = () => {
+        audioRef.current.currentTime = progressBarRef.current.value;
+      };
+
+      const formatTime = (time) => {
+        if (time && !isNaN(time)) {
+          const minutes = Math.floor(time / 60);
+          const formatMinutes =
+            minutes < 10 ? `0${minutes}` : `${minutes}`;
+          const seconds = Math.floor(time % 60);
+          const formatSeconds =
+            seconds < 10 ? `0${seconds}` : `${seconds}`;
+          return `${formatMinutes}:${formatSeconds}`;
+        }
+        return '00:00';
+      };
   return (
-    <div class="flex items-center gap-10 w-full">
-      <span class="text-red-500">00:00</span>
-      <input type="range" class="range-slider w-full" style={{ '--range-progress': '25%' }} />
-      <span class="text-gray-700 text-sm leading-11">03:34</span>
+    <div className="flex items-center gap-10 w-full">
+      <span className="text-red-500">{formatTime(timeProgress)}</span>
+      <input
+      type="range"
+      ref={progressBarRef}
+      defaultValue="0"
+      onChange={handleProgressChange}/>
+      <span className="text-gray-700 text-sm leading-11">{formatTime(duration)}</span>
     </div>
   );
 };

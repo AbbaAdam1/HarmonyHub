@@ -1,13 +1,26 @@
 import { BsMusicNoteBeamed } from 'react-icons/bs';
+import NoSSRWrapper from "./no-ssr-wrapper";
 
-const DisplayTrack = ({ currentTrack, audioRef }) => {
+
+const DisplayTrack = ({
+  currentTrack,
+  audioRef,
+  setDuration,
+  progressBarRef,
+}) => {
+  const onLoadedMetadata = () => {
+    const seconds = audioRef.current.duration;
+    setDuration(seconds);
+    progressBarRef.current.max = seconds;
+    console.log(seconds);
+  };
   return (
     <div>
-      <audio src="./audio/Heartbeat.mp3" ref={audioRef} />
+      <audio src={currentTrack.src} ref={audioRef} onLoadedMetadata={onLoadedMetadata}/>
       <div className="audio-info">
         <div className="audio-image">
-            {"./images/heartbeatthumb.jpg" ? (
-            <img src="./images/heartbeatthumb.jpg" alt="audio avatar" />
+            {currentTrack.thumbnail ? (
+            <img src={currentTrack.thumbnail} alt="audio avatar" />
           ) : (
             <div className="icon-wrapper">
               <span className="audio-icon">
@@ -17,8 +30,8 @@ const DisplayTrack = ({ currentTrack, audioRef }) => {
           )}
         </div>
         <div className="text">
-          <p className="title">Heartbeat</p>
-          <p>Kero Kero Bonito</p>
+          <p className="title">{currentTrack.title}</p>
+          <p>{currentTrack.author}</p>
         </div>
       </div>
     </div>
