@@ -21,6 +21,8 @@ const ProgressBar = ({
             seconds < 10 ? `0${seconds}` : `${seconds}`;
           return `${formatMinutes}:${formatSeconds}`;
         }
+        console.log(timeProgress);
+        console.log(duration);
         return '00:00';
       };
   return (

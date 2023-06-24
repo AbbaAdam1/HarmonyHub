@@ -11,24 +11,11 @@ export default function Home() {
    //<main className="flex min-h-screen flex-col items-center justify-between p-5">
 
    <main>
-      <img
-        className="object-cover rounded w-64 h-64"
-        alt="graduation"
-        src="./images/graduation.jpg"
-      />
-
-<button type="button" onClick={() => alert('Hello world!')}>
-  Click Me!
-</button>
-
-
       <AudioPlayer />
 
-
-
-<button type="button" onClick={() => alert('Hello world!')}>
-  Click Me!
-</button>
+        <button type="button" onClick={() => alert('Hello world!')}>
+          Click Me!
+        </button>
 
 
 

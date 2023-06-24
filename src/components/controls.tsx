@@ -40,12 +40,20 @@ const Controls = ({
     if (isPlaying && audioRef.current) {
       audioRef.current.play();
       console.log(audioRef);
-      playAnimationRef.current = requestAnimationFrame(repeat);
+
     } else if(!isPlaying && audioRef.current) {
       audioRef.current.pause();
-      cancelAnimationFrame(playAnimationRef.current);
     }
+    playAnimationRef.current = requestAnimationFrame(repeat);
   }, [isPlaying, audioRef, repeat]);
+
+  const skipForward = () => {
+    audioRef.current.currentTime += 10;
+  };
+
+  const skipBackward = () => {
+    audioRef.current.currentTime -= 10;
+  };
 
   return (
     <div className="controls-wrapper">
@@ -53,14 +61,14 @@ const Controls = ({
         <button>
           <IoPlaySkipBackSharp />
         </button>
-        <button>
+        <button onClick={skipBackward}>
           <IoPlayBackSharp />
         </button>
 
         <button onClick={togglePlayPause}>
           {isPlaying ? <IoPauseSharp /> : <IoPlaySharp />}
         </button>
-        <button>
+        <button onClick={skipForward}>
           <IoPlayForwardSharp />
         </button>
         <button>

@@ -32,7 +32,7 @@ body {
 
 @media (min-width: 768px) {
   .grid {
-    grid-template-columns: minmax(0, 300px) minmax(0, 1fr); /* Set a fixed width for the sidebar column */
+    grid-template-columns: minmax(0, 135px) minmax(0, 1fr); /* Set a fixed width for the sidebar column */
   }
 
   .main-content {

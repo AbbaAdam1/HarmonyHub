@@ -30,7 +30,7 @@ input[type="range"]::-moz-range-track {
 input[type="range"]::before {
   content: '';
   height: 2px;
-  background: #f50;
+  background: #232aa1;
   width: var(--range-progress);
   border-bottom-left-radius: 2px;
   border-top-left-radius: 2px;
@@ -54,7 +54,7 @@ input[type="range"]::-webkit-slider-thumb {
   width: 8px;
   border-radius: 50%;
   border: none;
-  background-color: #f50;
+  background-color: black;
   cursor: pointer;
   position: relative;
 }
