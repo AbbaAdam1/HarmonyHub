@@ -16,12 +16,10 @@ const Controls = ({
     progressBarRef,
     duration,
     setTimeProgress,
+              togglePlayPause,
+              isPlaying,
+              setIsPlaying
     }) => {
-  const [isPlaying, setIsPlaying] = useState(false);
-  const togglePlayPause = () => {
-    setIsPlaying((prev) => !prev);
-  };
-
   const playAnimationRef = useRef();
 
   const repeat = useCallback(() => {
@@ -39,8 +37,6 @@ const Controls = ({
   useEffect(() => {
     if (isPlaying && audioRef.current) {
       audioRef.current.play();
-      console.log(audioRef);
-
     } else if(!isPlaying && audioRef.current) {
       audioRef.current.pause();
     }

@@ -7,13 +7,21 @@ const DisplayTrack = ({
   audioRef,
   setDuration,
   progressBarRef,
+  artistData,
 }) => {
   const onLoadedMetadata = () => {
     const seconds = audioRef.current.duration;
     setDuration(seconds);
     progressBarRef.current.max = seconds;
-    console.log(seconds);
   };
+
+  if (!artistData) {
+    // Render a placeholder or loading state when artistData is null
+    return <div>Loading...</div>;
+  }
+
+  const { external_urls, followers, genres, href, id, images, name, popularity, type, uri } = artistData;
+
   return (
     <div>
       <audio src={currentTrack.src} ref={audioRef} onLoadedMetadata={onLoadedMetadata}/>

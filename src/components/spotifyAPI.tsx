@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const requestAccessToken = async () => {
+export const requestAccessToken = async () => {
   const clientId = '34980fdd86484119b151be617f1d5444';
   const clientSecret = 'fc6d9335209c474a89fb02f364bde157';
 
@@ -24,7 +24,7 @@ const requestAccessToken = async () => {
   }
 };
 
-const getArtistData = async (artistId) => {
+export const getArtistData = async (artistId) => {
   const accessToken = await requestAccessToken();
 
   try {

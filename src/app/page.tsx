@@ -1,22 +1,42 @@
 'use client'
 
-import { useClient } from 'next/client';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import Image from 'next/image'
 import Sidebar from "./sidebar";
 import Layout from "./layout";
+import Album from "../components/album";
 import AudioPlayer from "../components/audioplayertest"
+import { getArtistData } from "../components/spotifyAPI"
 
 export default function Home() {
+
+  const [artistData, setArtistData] = useState(null);
+  useEffect(() => {
+    const fetchArtistData = async () => {
+      try {
+        const artistData = await getArtistData(client, '4Z8W4fKeB5YxbusRsdQVPb');
+        setArtistData(artistData);
+        console.log(artistData);
+        // Process the artist data and update your component state or perform other actions
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+
+    fetchArtistData();
+  }, []);
   return (
    //<main className="flex min-h-screen flex-col items-center justify-between p-5">
 
    <main>
-      <AudioPlayer />
+      <AudioPlayer artistData={artistData}/>
+      <requestAccessToken />
+
 
         <button type="button" onClick={() => alert('Hello world!')}>
           Click Me!
         </button>
-
 
 
 
