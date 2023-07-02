@@ -15,21 +15,25 @@ const DisplayTrack = ({
     progressBarRef.current.max = seconds;
   };
 
+  console.log(artistData)
+
   if (!artistData) {
     // Render a placeholder or loading state when artistData is null
     return <div>Loading...</div>;
   }
 
+
   const { external_urls, followers, genres, href, id, images, name, popularity, type, uri } = artistData;
+
 
   return (
     <div>
       <audio src={currentTrack.src} ref={audioRef} onLoadedMetadata={onLoadedMetadata}/>
       <div className="audio-info">
         <div className="audio-image">
-            {currentTrack.thumbnail ? (
-            <img src={currentTrack.thumbnail} alt="audio avatar" />
-          ) : (
+            {images && images.length > 0 ? (
+                <img src={images[0].url} alt="audio avatar" />
+        ) : (
             <div className="icon-wrapper">
               <span className="audio-icon">
                 <BsMusicNoteBeamed />
@@ -39,7 +43,7 @@ const DisplayTrack = ({
         </div>
         <div className="text">
           <p className="title">{currentTrack.title}</p>
-          <p>{currentTrack.author}</p>
+          <p>{name}</p>
         </div>
       </div>
     </div>

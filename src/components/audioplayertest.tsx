@@ -20,6 +20,7 @@ const AudioPlayer = ({ artistData }) => {
     setIsPlaying((prev) => !prev);
   };
   const [isPlaying, setIsPlaying] = useState(false);
+  console.log(artistData)
   return (
     <div className="audio-player">
       <div className="inner">

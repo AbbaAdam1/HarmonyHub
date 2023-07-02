@@ -35,11 +35,25 @@ export const getArtistData = async (artistId) => {
     });
 
     console.log(response.data);
+    return response.data;
     // Process the artist data and update your component state or perform other actions
   } catch (error) {
     console.error('Error fetching artist data:', error);
+    throw error;
   }
 };
 
+export async function fetchArtistData() {
+  try {
+    const artistData = await getArtistData('6OqhFYFJDnBBHas02HopPT?si=dLzDGPpxSbueZxZYNrBTdg');
+    console.log(artistData);
+    // Process the artist data and update your component state or perform other actions
+    return artistData;
+  } catch (error) {
+    // Handle errors
+    console.error('Error:', error);
+  }
+}
+
 // Call the function to retrieve artist data
-getArtistData('6OqhFYFJDnBBHas02HopPT?si=dLzDGPpxSbueZxZYNrBTdg');
+//getArtistData('6OqhFYFJDnBBHas02HopPT?si=dLzDGPpxSbueZxZYNrBTdg');
