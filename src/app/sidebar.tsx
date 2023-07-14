@@ -1,12 +1,7 @@
 import React from "react";
 import classNames from "classnames";
 
-type Props = {
-  open: boolean;
-  setOpen(open: boolean): void;
-};
-
-const Sidebar = ({ open, setOpen }: Props) => {
+const Sidebar = () => {
   return (
     <div
       className={classNames({

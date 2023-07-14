@@ -5,6 +5,7 @@ module.exports = {
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
+  mode: 'jit',
   theme: {
     extend: {
       backgroundImage: {
@@ -14,6 +15,12 @@ module.exports = {
       },
       gridTemplateColumns: {
         sidebar: "100px auto", // 👈 for sidebar layout. adds grid-cols-sidebar class
+      },
+      padding: {
+        '1/2': '50%',
+        '1/3': '33%',
+        '1/4': '25%',
+        full: '100%',
       },
     },
   },

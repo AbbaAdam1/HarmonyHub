@@ -1,4 +1,4 @@
-const Album = ({togglePlayPause}) => (
+const Album = ({ togglePlayPause }: { togglePlayPause: () => void }) => (
   <div className="container flex mx-auto w-full items-center">
     <ul className="flex flex-col bg-gray-300 w-screen p-4">
       <li className="border-gray-400 flex flex-row mb-2">

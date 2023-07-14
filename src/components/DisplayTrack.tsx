@@ -1,5 +1,6 @@
 import { BsMusicNoteBeamed } from 'react-icons/bs';
 import NoSSRWrapper from "./no-ssr-wrapper";
+import Image from "next/image";
 
 
 const DisplayTrack = ({
@@ -32,7 +33,7 @@ const DisplayTrack = ({
       <div className="audio-info">
         <div className="audio-image">
             {images && images.length > 0 ? (
-                <img src={images[0].url} alt="audio avatar" />
+                <Image src={images[0].url} alt="audio avatar" />
         ) : (
             <div className="icon-wrapper">
               <span className="audio-icon">

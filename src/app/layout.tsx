@@ -21,14 +21,11 @@ export default function RootLayout({
         {/* Add any necessary head elements here */}
       </head>
       <body>
-        <div className="grid grid-cols-sidebar">
           {/* Apply the grid class here */}
-          <Sidebar />
           <div className="main-content">
             {/* Add a container for the main content */}
             {children}
           </div>
-        </div>
       </body>
     </html>
   );
