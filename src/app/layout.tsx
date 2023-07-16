@@ -24,7 +24,10 @@ export default function RootLayout({
           {/* Apply the grid class here */}
           <div className="main-content">
             {/* Add a container for the main content */}
-            {children}
+            <Sidebar />
+            <div className="p-4 sm:ml-64">
+                {children}
+            </div>
           </div>
       </body>
     </html>
