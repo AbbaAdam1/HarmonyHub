@@ -33,7 +33,10 @@ const DisplayTrack = ({
       <div className="audio-info">
         <div className="audio-image">
             {images && images.length > 0 ? (
-                <Image src={images[0].url} alt="audio avatar" />
+                <Image src={images[0].url}
+                width={310}
+                height={310}
+                alt="audio avatar" />
         ) : (
             <div className="icon-wrapper">
               <span className="audio-icon">
