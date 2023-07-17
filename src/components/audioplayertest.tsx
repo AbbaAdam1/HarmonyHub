@@ -1,7 +1,6 @@
 import { useRef, useState } from 'react';
 import { tracks } from './tracks';
 import dynamic from 'next/dynamic';
-import artistData from '../app/page';
 
 import NoSSRWrapper from "./no-ssr-wrapper";
 

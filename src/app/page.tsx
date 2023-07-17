@@ -24,7 +24,7 @@ export default function Home() {
    //<main className="flex min-h-screen flex-col items-center justify-between p-5">
 
    <main>
-      <AudioPlayer artistData/>
+      <AudioPlayer artistData={artistData}/>
 
 
         <button type="button" onClick={() => alert('Hello world!')}>
