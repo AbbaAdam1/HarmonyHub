@@ -24,7 +24,7 @@ const DisplayTrack = ({
   }
 
 
-  const { external_urls, followers, genres, href, id, images, name, popularity, type, uri } = artistData;
+  const { external_urls, followers, genres, href, id, images, name, popularity, type, url } = artistData;
 
 
   return (

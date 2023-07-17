@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 import { tracks } from './tracks';
 import dynamic from 'next/dynamic';
-import ArtistData from '../app/page';
+import artistData from '../app/page';
 
 import NoSSRWrapper from "./no-ssr-wrapper";
 
@@ -11,7 +11,7 @@ const Controls = dynamic(() => import('./controls'), { ssr: false });
 const ProgressBar = dynamic(() => import('./ProgressBar'), { ssr: false });
 const Album = dynamic(() => import('./album'), { ssr: false });
 
-const AudioPlayer = ({ ArtistData }) => {
+const AudioPlayer = ({ artistData }) => {
   const [currentTrack, setCurrentTrack] = useState(tracks[0]);
   const [timeProgress, setTimeProgress] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -30,7 +30,7 @@ const AudioPlayer = ({ ArtistData }) => {
               audioRef,
               setDuration,
               progressBarRef,
-              ArtistData
+              artistData
             }}
         />
         <Controls
