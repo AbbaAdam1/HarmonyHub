@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { fetchAlbumsData } from '../components/spotifyAPI';
 import Image from "next/image";
+import { useRouter } from 'next/navigation'
 
 const Squares = () => {
   const [albumsData, setAlbumsData] = useState(null);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -14,6 +16,10 @@ const Squares = () => {
     fetchData();
   }, []);
 
+  const navigateToAlbum = (albumId) => {
+    router.push(`/audioplayertest/${albumId}`);
+  };
+
   return (
     <div className="grid grid-cols-3 gap-4 mt-12">
       {albumsData &&
@@ -21,6 +27,7 @@ const Squares = () => {
           <div
             key={index}
             className={`w-full h-0 shadow-lg pb-full rounded-xl bg-black-500 hover:bg-gray-800 relative border border-gray-800 border-[2px]`}
+            onClick={() => navigateToAlbum(album.id)}
           >
   <div className="flex items-center justify-center">
     <Image

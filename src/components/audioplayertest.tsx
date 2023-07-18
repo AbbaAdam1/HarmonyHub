@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
 import { tracks } from './tracks';
 import dynamic from 'next/dynamic';
+import { useRouter } from 'next/navigation'
 
 import NoSSRWrapper from "./no-ssr-wrapper";
 
@@ -11,6 +12,9 @@ const ProgressBar = dynamic(() => import('./ProgressBar'), { ssr: false });
 const Album = dynamic(() => import('./album'), { ssr: false });
 
 const AudioPlayer = ({ artistData }) => {
+  const router = useRouter();
+  const { albumId } = router.query;
+
   const [currentTrack, setCurrentTrack] = useState(tracks[0]);
   const [timeProgress, setTimeProgress] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -20,6 +24,16 @@ const AudioPlayer = ({ artistData }) => {
     setIsPlaying((prev) => !prev);
   };
   const [isPlaying, setIsPlaying] = useState(false);
+
+  useEffect(() => {
+    const fetchAlbumData = async () => {
+      const data = await fetchSingleAlbumData(albumId);
+      // Update the component state with the fetched album data
+    };
+
+    fetchAlbumData();
+  }, [albumId]);
+
   return (
     <div className="audio-player">
       <div className="inner">
