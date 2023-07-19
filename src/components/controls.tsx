@@ -7,19 +7,7 @@ import {
   IoPlayForwardSharp,
   IoPlaySkipBackSharp,
   IoPlaySkipForwardSharp,
-  IoPlaySharp,Unhandled Runtime Error
-TypeError: Cannot read properties of undefined (reading 'currentTime')
-
-Source
-src\components\controls.tsx (26:41) @ currentTime
-
-  24 |
-  25 | const repeat = useCallback(() => {
-> 26 |   const currentTime = audioRef.current.currentTime;
-     |                                       ^
-  27 |   setTimeProgress(currentTime);
-  28 |   progressBarRef.current.value = currentTime;
-  29 |   progressBarRef.current.style.setProperty(
+  IoPlaySharp,
   IoPauseSharp,
 } from 'react-icons/io5';
 
