@@ -1,19 +1,20 @@
-import { useRef, useState } from 'react';
-import { tracks } from './tracks';
+import { useRef, useState, useEffect } from 'react';
+import { tracks } from '../../components/tracks';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation'
+import { fetchSingleAlbumData } from '../../components/spotifyAPI';
 
 import NoSSRWrapper from "./no-ssr-wrapper";
 
 // import components
-const DisplayTrack = dynamic(() => import('./DisplayTrack'), { ssr: false });
-const Controls = dynamic(() => import('./controls'), { ssr: false });
-const ProgressBar = dynamic(() => import('./ProgressBar'), { ssr: false });
-const Album = dynamic(() => import('./album'), { ssr: false });
+const DisplayTrack = dynamic(() => import('../../components/DisplayTrack'), { ssr: false });
+const Controls = dynamic(() => import('../../components/controls'), { ssr: false });
+const ProgressBar = dynamic(() => import('../../components/ProgressBar'), { ssr: false });
+const Album = dynamic(() => import('../../components/album'), { ssr: false });
 
 const AudioPlayer = ({ artistData }) => {
   const router = useRouter();
-  const { albumId } = router.query;
+  const albumId = router.query;
 
   const [currentTrack, setCurrentTrack] = useState(tracks[0]);
   const [timeProgress, setTimeProgress] = useState(0);

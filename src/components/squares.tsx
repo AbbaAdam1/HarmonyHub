@@ -17,7 +17,7 @@ const Squares = () => {
   }, []);
 
   const navigateToAlbum = (albumId) => {
-    router.push(`/audioplayertest/${albumId}`);
+    router.push(`/album/${albumId}`);
   };
 
   return (

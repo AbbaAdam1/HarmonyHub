@@ -10,18 +10,6 @@ const DisplayTrack = ({
   progressBarRef,
   artistData,
 }) => {
-  const router = useRouter();
-  const { albumId } = router.query;
-
-  useEffect(() => {
-    const fetchAlbumData = async () => {
-      const data = await fetchSingleAlbumData(albumId);
-      // Update the component state with the fetched album data
-    };
-
-    fetchAlbumData();
-  }, [albumId]);
-
   const onLoadedMetadata = () => {
     const seconds = audioRef.current.duration;
     setDuration(seconds);
