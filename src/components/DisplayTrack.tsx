@@ -2,19 +2,30 @@ import { BsMusicNoteBeamed } from 'react-icons/bs';
 import NoSSRWrapper from "./no-ssr-wrapper";
 import Image from "next/image";
 import { useRouter } from 'next/navigation'
+import { fetchArtistData } from '../components/spotifyAPI';
+import { useState, useEffect } from 'react';
 
 const DisplayTrack = ({
   currentTrack,
   audioRef,
   setDuration,
   progressBarRef,
-  artistData,
 }) => {
   const onLoadedMetadata = () => {
     const seconds = audioRef.current.duration;
     setDuration(seconds);
     progressBarRef.current.max = seconds;
   };
+
+  const [artistData, setArtistData] = useState(null);
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await fetchArtistData();
+      setArtistData(data);
+    };
+
+    fetchData();
+  }, []);
 
   console.log(artistData)
 
