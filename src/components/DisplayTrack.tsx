@@ -14,9 +14,9 @@ const DisplayTrack = ({
   albumData
 }) => {
   const onLoadedMetadata = () => {
-    const seconds = audioRef.current.duration;
-    setDuration(seconds);
-    progressBarRef.current.max = seconds;
+    const seconds = 30;
+    setDuration(30);
+    progressBarRef.current.max = 30;
   };
 /*
   const [artistData, setArtistData] = useState(null);
