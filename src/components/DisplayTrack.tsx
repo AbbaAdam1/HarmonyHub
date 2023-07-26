@@ -3,6 +3,7 @@ import NoSSRWrapper from "./no-ssr-wrapper";
 import Image from "next/image";
 import { useRouter } from 'next/navigation'
 import { fetchArtistData } from '../components/spotifyAPI';
+import { fetchAlbumData } from '../components/spotifyAPI';
 import { useState, useEffect } from 'react';
 
 const DisplayTrack = ({
@@ -10,13 +11,14 @@ const DisplayTrack = ({
   audioRef,
   setDuration,
   progressBarRef,
+  albumData
 }) => {
   const onLoadedMetadata = () => {
     const seconds = audioRef.current.duration;
     setDuration(seconds);
     progressBarRef.current.max = seconds;
   };
-
+/*
   const [artistData, setArtistData] = useState(null);
   useEffect(() => {
     const fetchData = async () => {
@@ -26,27 +28,45 @@ const DisplayTrack = ({
 
     fetchData();
   }, []);
+*/
 
-  console.log(artistData)
+/*
+  const [albumData, setAlbumData] = useState(null);
+  useEffect(() => {
+    const fetchAlbumData = async () => {
+      const data = await fetchSingleAlbumData(albumId);
+      setAlbumData(data);
+      // Update the component state with the fetched album data
+    };
 
+    fetchAlbumData();
+  }, [albumId]);
+
+  console.log(albumData)
+/*
   if (!artistData) {
     // Render a placeholder or loading state when artistData is null
     return <div>Loading...</div>;
   }
+*/
+console.log(albumData)
+  if (!albumData) {
+    // Render a placeholder or loading state when albumData is null
+    return <div>Loading...</div>;
+  }
+  console.log(albumData)
 
-
-  const { external_urls, followers, genres, href, id, images, name, popularity, type, url } = artistData;
-
+ // const { external_urls, followers, genres, href, id, images, name, popularity, type, url } = artistData;
 
   return (
     <div>
-      <audio src={currentTrack.src} ref={audioRef} onLoadedMetadata={onLoadedMetadata}/>
+      <audio src={albumData.name} ref={audioRef} onLoadedMetadata={onLoadedMetadata}/>
       <div className="audio-info">
         <div className="audio-image">
-            {images && images.length > 0 ? (
-                <Image src={images[0].url}
-                width={310}
-                height={310}
+            {albumData.images && albumData.images.length > 0 ? (
+                <Image src={albumData.images[0].url}
+                width={albumData.images[0].width}
+                height={albumData.images[0].height}
                 alt="audio avatar" />
         ) : (
             <div className="icon-wrapper">
@@ -57,8 +77,8 @@ const DisplayTrack = ({
           )}
         </div>
         <div className="text">
-          <p className="title">{currentTrack.title}</p>
-          <p>{name}</p>
+          <p className="title">{albumData.name}</p>
+          <p>{albumData.artists[0].name}</p>
         </div>
       </div>
     </div>

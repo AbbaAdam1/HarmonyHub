@@ -84,6 +84,8 @@ export const fetchSingleAlbumData = async (albumId) => {
     const albumData = await getSingleAlbumData(albumId);
     //console.log(albumData);
     // Process the artist data and update your component state or perform other actions
+    console.error(albumData);
+    console.error(albumData);
     return albumData;
   } catch (error) {
     // Handle errors
