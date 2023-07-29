@@ -141,7 +141,7 @@ export const getAlbumData = async (albumIds) => {
 
 export async function fetchAlbumsData() {
   try {
-    const ids = ['5vDVFuzV8aAIymXSkpyJoe', '4EPQtdq6vvwxuYeQTrwDVY', '392p3shh2jkxUxY2VHvlH8'];
+    const ids = ['5vDVFuzV8aAIymXSkpyJoe', '2ANVost0y2y52ema1E9xAZ', '5IrjPvqdC4Wxse4oKSwaQe', '1c9Sx7XdXuMptGyfCB6hHs', '0FZK97MXMm5mUQ8mtudjuK', '6f5gAJpM85TE6aQ81h46T5'];
     const albumsData = await getAlbumsData(ids);
     console.log(albumsData);
     // Process the artist data and update your component state or perform other actions

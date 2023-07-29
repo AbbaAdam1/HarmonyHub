@@ -22,9 +22,13 @@ const AudioPlayer = () => {
   const [duration, setDuration] = useState(0);
   const audioRef = useRef();
   const progressBarRef = useRef();
+  const otherTogglePlayPause = () => {
+    setIsPlaying(true);
+  };
   const togglePlayPause = () => {
     setIsPlaying((prev) => !prev);
   };
+
   const [isPlaying, setIsPlaying] = useState(false);
 
   const [albumData, setAlbumData] = useState(null);
@@ -39,6 +43,14 @@ const AudioPlayer = () => {
   }, [albumId]);
 
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
+
+  const handleTrackChange = (trackIndex) => {
+    setCurrentTrackIndex(trackIndex);
+  };
+
+  if (!albumData || !albumData.tracks || !albumData.tracks.items || albumData.tracks.items.length === 0) {
+    return <div>Loading...</div>;
+  }
   //const currentTrack = albumData?.tracks?.items[currentTrackIndex];
   const currentTrack = albumData?.tracks?.items[currentTrackIndex]?.preview_url;
 
@@ -49,6 +61,7 @@ const AudioPlayer = () => {
 
   //const [trackIndex, setTrackIndex] = useState(0);
   //const [currentTrack, setCurrentTrack] = useState(albumData.tracks.items.preview_url);
+  console.log(currentTrackIndex)
   console.log(currentTrack)
   //const [currentTrack, setCurrentTrack] = useState(
   //  albumData.tracks.items[trackIndex]
@@ -66,7 +79,8 @@ const AudioPlayer = () => {
               audioRef,
               setDuration,
               progressBarRef,
-              albumData
+              albumData,
+              currentTrackIndex
             }}
         />
         <Controls
@@ -78,7 +92,7 @@ const AudioPlayer = () => {
               togglePlayPause,
               isPlaying,
               setIsPlaying,
-
+              activeTrackIndex: currentTrackIndex
             }}
          />
         <ProgressBar
@@ -88,7 +102,11 @@ const AudioPlayer = () => {
         <Album
           {...{
             togglePlayPause,
-            albumData
+            otherTogglePlayPause,
+            albumData,
+            currentTrackIndex,
+            setCurrentTrackIndex,
+            onTrackChange: handleTrackChange
           }}
           />
     </div>

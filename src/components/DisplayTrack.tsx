@@ -11,8 +11,12 @@ const DisplayTrack = ({
   audioRef,
   setDuration,
   progressBarRef,
-  albumData
+  albumData,
+  currentTrackIndex
 }) => {
+  if (!currentTrack) {
+    return <div>Loading...</div>;
+  }
   const onLoadedMetadata = () => {
     const seconds = 30;
     setDuration(30);
@@ -60,7 +64,7 @@ console.log(albumData)
 
   return (
     <div>
-      <audio src={albumData.name} ref={audioRef} onLoadedMetadata={onLoadedMetadata}/>
+      <audio src={currentTrack} ref={audioRef} onLoadedMetadata={onLoadedMetadata}/>
       <div className="audio-info">
         <div className="audio-image">
             {albumData.images && albumData.images.length > 0 ? (
@@ -81,6 +85,7 @@ console.log(albumData)
           <p>{albumData.artists[0].name}</p>
         </div>
       </div>
+      <p>{albumData.tracks.items[currentTrackIndex]?.name}</p>
     </div>
   );
 };

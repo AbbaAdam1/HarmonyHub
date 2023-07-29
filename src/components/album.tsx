@@ -1,4 +1,18 @@
-const Album = ({ albumData, togglePlayPause }: { albumData: any, togglePlayPause: () => void }) => {
+const Album = ({
+  albumData,
+  togglePlayPause,
+  otherTogglePlayPause,
+  currentTrackIndex,
+  setCurrentTrackIndex,
+  onTrackChange,
+}: {
+  albumData: any;
+  togglePlayPause: () => void;
+  otherTogglePlayPause: () => void;
+  currentTrackIndex: number;
+  setCurrentTrackIndex: (index: number) => void;
+  onTrackChange: (trackIndex: number) => void
+}) => {
   const msToTime = (duration) => {
     const seconds = Math.floor((duration / 1000) % 60);
     const minutes = Math.floor((duration / (1000 * 60)) % 60);
@@ -10,11 +24,22 @@ const Album = ({ albumData, togglePlayPause }: { albumData: any, togglePlayPause
     <div className="container flex mx-auto w-full items-center">
       {albumData ? (
         <ul className="flex flex-col bg-gray-300 w-screen p-4">
-          {albumData.tracks.items.map((track: any) => (
+          {albumData.tracks.items.map((track: any, index: number) => (
             <li key={track.id} className="border-red-400 flex flex-row mb-2">
               <div
-                onClick={togglePlayPause}
-                className="select-none cursor-pointer bg-orange-500 rounded-md flex flex-1 items-center p-4 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-lg"
+                  onClick={() => {
+                  // If the clicked track is already the current track, toggle play/pause
+                  if (currentTrackIndex === index) {
+                    togglePlayPause();
+                  } else {
+                    // Otherwise, switch to the new track and start playing it immediately
+                    otherTogglePlayPause(track);
+                    onTrackChange(index);
+                  }
+                }}
+                className={`select-none cursor-pointer rounded-md flex flex-1 items-center p-4 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-lg ${
+                  currentTrackIndex === index ? 'bg-orange-800' : 'bg-orange-500'
+                }`}
               >
                 <div className="flex flex-col rounded-md w-10 h-10 bg-gray-300 justify-center items-center mr-4">▷</div>
                 <div className="flex-1 pl-1 mr-16">
