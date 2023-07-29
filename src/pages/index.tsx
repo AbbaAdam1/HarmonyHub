@@ -1,29 +1,33 @@
 'use client'
 
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image'
-import Sidebar from "./sidebar";
 import Squares from "../components/squares";
 import Layout from "./layout";
 import Album from "../components/album";
 import AudioPlayer from "../components/audioplayertest"
 import { fetchArtistData } from '../components/spotifyAPI';
+import { fetchAlbumsData } from '../components/spotifyAPI';
 
 export default function Home() {
+  const [albumsData, setAlbumsData] = useState(null);
+  const router = useRouter();
 
-  const [artistData, setArtistData] = useState(null);
   useEffect(() => {
     const fetchData = async () => {
-      const data = await fetchArtistData();
-      setArtistData(data);
+      const data = await fetchAlbumsData();
+      setAlbumsData(data);
     };
 
     fetchData();
   }, []);
-  return (
-   //<main className="flex min-h-screen flex-col items-center justify-between p-5">
 
+    const navigateToAlbum = (albumId) => {
+      router.push(`/album/${albumId}`);
+    };
+
+  return (
    <main>
 
 
@@ -55,7 +59,30 @@ export default function Home() {
       </div>
    </div>
 
-     <Squares />
+
+
+       <div className="grid grid-cols-3 gap-4 mt-12">
+           {albumsData &&
+           albumsData.map((album, index) => (
+             <div
+               key={index}
+               className={`w-full h-0 shadow-lg pb-full rounded-xl bg-black-500 hover:bg-gray-800 relative border border-gray-800 border-[2px]`}
+               onClick={() => navigateToAlbum(album.id)}
+             >
+                 <div className="flex items-center justify-center">
+                   <Image
+                     className="mx-auto pt-7"
+                     src={album.images[0].url}
+                     alt="audio avatar"
+                     width={310}
+                     height={310}
+                   />
+                     <p className="text-shadow-lg font-bold text-xl absolute bottom-2 left-2">{album.name}</p>
+                     <p className="absolute bottom-2 right-2">{album.artists[0].name}</p>
+                 </div>
+             </div>
+           ))}
+       </div>
 
 
 

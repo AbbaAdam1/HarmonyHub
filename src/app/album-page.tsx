@@ -3,9 +3,6 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image'
-import Sidebar from "./sidebar";
-import Layout from "./layout";
-import Album from "../components/album";
 import AudioPlayer from "../components/audioplayertest"
 import { fetchArtistData } from '../components/spotifyAPI';
 

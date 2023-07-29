@@ -18,11 +18,13 @@ const Controls = ({
     setTimeProgress,
               togglePlayPause,
               isPlaying,
-              setIsPlaying
+              setIsPlaying,
+              activeTrackIndex,
     }) => {
   const playAnimationRef = useRef();
 
   const repeat = useCallback(() => {
+    //console.log(duration)
     const currentTime = audioRef.current.currentTime;
     setTimeProgress(currentTime);
     progressBarRef.current.value = currentTime;
@@ -42,6 +44,14 @@ const Controls = ({
     }
     playAnimationRef.current = requestAnimationFrame(repeat);
   }, [isPlaying, audioRef, repeat]);
+
+  // New useEffect to handle track changes
+  useEffect(() => {
+    if (isPlaying && activeTrackIndex !== null) {
+      // If the activeTrackIndex is not null, it means a track is selected, so play it
+      audioRef.current.play();
+    }
+  }, [activeTrackIndex, audioRef, isPlaying]);
 
   const skipForward = () => {
     audioRef.current.currentTime += 10;
