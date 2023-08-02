@@ -62,7 +62,7 @@ const Controls = ({
   };
 
   return (
-    <div className="controls-wrapper">
+    <div className="flex justify-center pt-4">
       <div className="controls">
         <button>
           <IoPlaySkipBackSharp />

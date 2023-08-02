@@ -69,9 +69,10 @@ const AudioPlayer = () => {
 
 
   console.log(albumData)
+  console.log("bg-orange-500 bg-opacity-20")
 
   return (
-    <div className="audio-player">
+    <div className="bg-black">
       <div className="inner">
         <DisplayTrack
             {...{

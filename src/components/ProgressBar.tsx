@@ -31,7 +31,7 @@ const ProgressBar = ({
       ref={progressBarRef}
       defaultValue="0"
       onChange={handleProgressChange}/>
-      <span className="text-gray-700 text-sm leading-11">{formatTime(30)}</span>
+      <span className="text-red-500 leading-11">{formatTime(29)}</span>
     </div>
   );
 };

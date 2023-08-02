@@ -64,8 +64,9 @@ console.log(albumData)
 
   return (
     <div>
+    <div className="backdrop-blur bg-gray-300/20">
       <audio src={currentTrack} ref={audioRef} onLoadedMetadata={onLoadedMetadata}/>
-      <div className="audio-info">
+      <div className="flex gap-5">
         <div className="audio-image">
             {albumData.images && albumData.images.length > 0 ? (
                 <Image src={albumData.images[0].url}
@@ -80,12 +81,14 @@ console.log(albumData)
             </div>
           )}
         </div>
-        <div className="text">
-          <p className="title">{albumData.name}</p>
-          <p>{albumData.artists[0].name}</p>
+        <div className="text-white">
+          <p className="text-black text-3xl mb-0 leading-10 bg-red-600">{albumData.name}</p>
+          <p className="text-lg font-semibold">{albumData.artists[0].name}</p>
+          <p className="pt-14 text-sm">Now playing:</p>
+          <p className="text-xl">{albumData.tracks.items[currentTrackIndex]?.name}</p>
         </div>
       </div>
-      <p>{albumData.tracks.items[currentTrackIndex]?.name}</p>
+    </div>
     </div>
   );
 };
