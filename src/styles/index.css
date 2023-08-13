@@ -72,11 +72,18 @@
   margin-top: 10px;
 }
 
-.controls button, .volume button {
+.controls button {
   border: none;
   background-color: transparent;
   margin-right: 65px;
   cursor: pointer;
+}
+
+.volume button {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  align-items: right;
 }
 
 button svg {
@@ -86,10 +93,6 @@ button svg {
 .volume {
   display: flex;
   align-items: center;
-}
-
-.volume button {
-  margin: 0;
 }
 
 .progress {

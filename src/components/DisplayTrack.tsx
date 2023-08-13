@@ -1,10 +1,7 @@
+import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { BsMusicNoteBeamed } from 'react-icons/bs';
-import NoSSRWrapper from "./no-ssr-wrapper";
-import Image from "next/image";
-import { useRouter } from 'next/navigation'
-import { fetchArtistData } from '../components/spotifyAPI';
-import { fetchAlbumData } from '../components/spotifyAPI';
-import { useState, useEffect } from 'react';
+import { getDominantColorFromImage } from './colorUtils';
 
 const DisplayTrack = ({
   currentTrack,
@@ -12,84 +9,73 @@ const DisplayTrack = ({
   setDuration,
   progressBarRef,
   albumData,
-  currentTrackIndex
+  currentTrackIndex,
+  nextTrack,
 }) => {
-  if (!currentTrack) {
-    return <div>Loading...</div>;
-  }
+  const [derivedColor, setDerivedColor] = useState([255, 255, 255]);
+  const [isLoading, setIsLoading] = useState(true);
+
   const onLoadedMetadata = () => {
     const seconds = 30;
     setDuration(30);
     progressBarRef.current.max = 30;
   };
-/*
-  const [artistData, setArtistData] = useState(null);
+
   useEffect(() => {
-    const fetchData = async () => {
-      const data = await fetchArtistData();
-      setArtistData(data);
+    const loadContent = async () => {
+      if (albumData.images && albumData.images.length > 0) {
+        const imageUrl = albumData.images[0].url;
+
+        await getDominantColorFromImage(imageUrl).then(dominantColor => {
+          console.log('Dominant Color:', dominantColor);
+          setDerivedColor(dominantColor);
+        });
+      }
+
+      setIsLoading(false); // Set loading state to false after everything is loaded
     };
 
-    fetchData();
-  }, []);
-*/
+    loadContent();
+  }, [albumData]);
 
-/*
-  const [albumData, setAlbumData] = useState(null);
-  useEffect(() => {
-    const fetchAlbumData = async () => {
-      const data = await fetchSingleAlbumData(albumId);
-      setAlbumData(data);
-      // Update the component state with the fetched album data
-    };
-
-    fetchAlbumData();
-  }, [albumId]);
-
-  console.log(albumData)
-/*
-  if (!artistData) {
-    // Render a placeholder or loading state when artistData is null
-    return <div>Loading...</div>;
+  if (isLoading) {
+    return null; // Return null while loading
   }
-*/
-console.log(albumData)
-  if (!albumData) {
-    // Render a placeholder or loading state when albumData is null
-    return <div>Loading...</div>;
-  }
-  console.log(albumData)
 
- // const { external_urls, followers, genres, href, id, images, name, popularity, type, url } = artistData;
+  const derivedColorStyle = `rgba(${derivedColor[0]}, ${derivedColor[1]}, ${derivedColor[2]}, 0.5)`;
 
   return (
-    <div>
-    <div className="backdrop-blur bg-gray-300/20">
-      <audio src={currentTrack} ref={audioRef} onLoadedMetadata={onLoadedMetadata}/>
-      <div className="flex gap-5">
-        <div className="audio-image">
+    <div className="relative bg-gradient-to-r from-transparent via-transparent to-transparent">
+      <div className="absolute top-0 left-0 right-0 bottom-5 rounded-lg" style={{ backgroundColor: derivedColorStyle }}></div>
+      <div className="background bg-white bg-opacity-20 backdrop-blur-lg rounded-lg p-8">
+        <audio src={currentTrack} ref={audioRef} onLoadedMetadata={onLoadedMetadata} onEnded={nextTrack}/>
+        <div className="flex gap-5">
+          <div>
             {albumData.images && albumData.images.length > 0 ? (
-                <Image src={albumData.images[0].url}
-                width={albumData.images[0].width}
-                height={albumData.images[0].height}
-                alt="audio avatar" />
-        ) : (
-            <div className="icon-wrapper">
-              <span className="audio-icon">
-                <BsMusicNoteBeamed />
-              </span>
-            </div>
-          )}
-        </div>
-        <div className="text-white">
-          <p className="text-black text-3xl mb-0 leading-10 bg-red-600">{albumData.name}</p>
-          <p className="text-lg font-semibold">{albumData.artists[0].name}</p>
-          <p className="pt-14 text-sm">Now playing:</p>
-          <p className="text-xl">{albumData.tracks.items[currentTrackIndex]?.name}</p>
+              <Image
+                src={albumData.images[0].url}
+                width={175}
+                height={175}
+                alt="audio avatar"
+              />
+            ) : (
+              <div className="icon-wrapper">
+                <span className="audio-icon">
+                  <BsMusicNoteBeamed />
+                </span>
+              </div>
+            )}
+          </div>
+          <div className="text-white">
+            <p className="text-3xl mb-0 leading-10 rounded-lg">{albumData.name}</p>
+            <p className="text-lg font-semibold">{albumData.artists[0].name}</p>
+            <p className="pt-14 text-sm">Now playing:</p>
+            <p className="text-xl font-semibold">{albumData.tracks.items[currentTrackIndex]?.name}</p>
+          </div>
         </div>
       </div>
     </div>
-    </div>
   );
 };
+
 export default DisplayTrack;

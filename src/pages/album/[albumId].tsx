@@ -7,12 +7,13 @@ import { fetchSingleAlbumData } from '../../components/spotifyAPI';
 import NoSSRWrapper from "./no-ssr-wrapper";
 
 // import components
-const DisplayTrack = dynamic(() => import('../../components/DisplayTrack'), { ssr: false });
-const Controls = dynamic(() => import('../../components/controls'), { ssr: false });
-const ProgressBar = dynamic(() => import('../../components/ProgressBar'), { ssr: false });
-const Album = dynamic(() => import('../../components/album'), { ssr: false });
+const DisplayTrack = dynamic(() => import('../../components/DisplayTrack'));
+const Controls = dynamic(() => import('../../components/controls'));
+const ProgressBar = dynamic(() => import('../../components/ProgressBar'));
+const Album = dynamic(() => import('../../components/album'));
 
 const AudioPlayer = () => {
+  const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
   const albumId = router.query.albumId;
   console.log(albumId)
@@ -32,6 +33,7 @@ const AudioPlayer = () => {
   const [isPlaying, setIsPlaying] = useState(false);
 
   const [albumData, setAlbumData] = useState(null);
+
   useEffect(() => {
     const fetchAlbumData = async () => {
       const data = await fetchSingleAlbumData(albumId);
@@ -48,17 +50,26 @@ const AudioPlayer = () => {
     setCurrentTrackIndex(trackIndex);
   };
 
+  const nextTrack = () => {
+    if (currentTrackIndex >= albumData.tracks.items.length - 1) {
+      handleTrackChange(0);
+    } else {
+      handleTrackChange((prev) => prev + 1);
+    }
+  };
+
+
   if (!albumData || !albumData.tracks || !albumData.tracks.items || albumData.tracks.items.length === 0) {
-    return <div>Loading...</div>;
+    return <div></div>;
   }
   //const currentTrack = albumData?.tracks?.items[currentTrackIndex];
   const currentTrack = albumData?.tracks?.items[currentTrackIndex]?.preview_url;
-
+/*
   if (!albumData) {
     // Render a placeholder or loading state when albumData is null
     return <div>Loading...</div>;
   }
-
+*/
   //const [trackIndex, setTrackIndex] = useState(0);
   //const [currentTrack, setCurrentTrack] = useState(albumData.tracks.items.preview_url);
   console.log(currentTrackIndex)
@@ -81,7 +92,8 @@ const AudioPlayer = () => {
               setDuration,
               progressBarRef,
               albumData,
-              currentTrackIndex
+              currentTrackIndex,
+              nextTrack,
             }}
         />
         <Controls
@@ -93,7 +105,10 @@ const AudioPlayer = () => {
               togglePlayPause,
               isPlaying,
               setIsPlaying,
-              activeTrackIndex: currentTrackIndex
+              nextTrack,
+              activeTrackIndex: currentTrackIndex,
+              onTrackChange: handleTrackChange,
+              tracksNumber: albumData.tracks.items.length
             }}
          />
         <ProgressBar

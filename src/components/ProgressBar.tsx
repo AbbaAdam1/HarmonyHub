@@ -25,13 +25,13 @@ const ProgressBar = ({
       };
   return (
     <div className="flex items-center gap-10 w-full">
-      <span className="text-red-500">{formatTime(timeProgress)}</span>
+      <span className="text-red-500 text-lg">{formatTime(timeProgress)}</span>
       <input
       type="range"
       ref={progressBarRef}
       defaultValue="0"
       onChange={handleProgressChange}/>
-      <span className="text-red-500 leading-11">{formatTime(29)}</span>
+      <span className="text-red-500 text-lg">{formatTime(29)}</span>
     </div>
   );
 };

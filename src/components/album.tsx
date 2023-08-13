@@ -21,9 +21,9 @@ const Album = ({
   };
 
   return (
-    <div className="container flex mx-auto w-full items-center">
+    <div className="container flex mx-auto w-full items-center border-t border-gray-400">
       {albumData ? (
-        <ul className="flex flex-col bg-gray-300 w-screen p-4">
+        <ul className="flex flex-col w-screen p-4">
           {albumData.tracks.items.map((track: any, index: number) => (
             <li key={track.id} className="border-red-400 flex flex-row mb-2">
               <div
@@ -45,7 +45,7 @@ const Album = ({
                 <div className="flex-1 pl-1 mr-16">
                   <div className="font-medium">{track.name}</div>
                 </div>
-                <div className="text-gray-600 text-xs">{msToTime(track.duration_ms)}</div>
+                <div className="text-xs">{msToTime(track.duration_ms)}</div>
               </div>
             </li>
           ))}

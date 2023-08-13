@@ -29,63 +29,31 @@ export default function Home() {
 
   return (
    <main>
-
-
-   <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
-      <div className="grid grid-cols-3 gap-4 mb-4">
-         <div className="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
-            <p className="text-2xl text-gray-400 dark:text-gray-500">
-               <svg className="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
-               </svg>
-            </p>
-         </div>
-      </div>
-      <div className="grid grid-cols-2 gap-4">
-         <div className="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-            <p className="text-2xl text-gray-400 dark:text-gray-500">
-               <svg className="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
-               </svg>
-            </p>
-         </div>
-         <div className="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-            <p className="text-2xl text-gray-400 dark:text-gray-500">
-               <svg className="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
-               </svg>
-            </p>
-         </div>
-      </div>
-   </div>
-
-
-
-       <div className="grid grid-cols-3 gap-4 mt-12">
-           {albumsData &&
-           albumsData.map((album, index) => (
-             <div
-               key={index}
-               className={`w-full h-0 shadow-lg pb-full rounded-xl bg-black-500 hover:bg-gray-800 relative border border-gray-800 border-[2px]`}
-               onClick={() => navigateToAlbum(album.id)}
-             >
-                 <div className="flex items-center justify-center">
-                   <Image
-                     className="mx-auto pt-7"
-                     src={album.images[0].url}
-                     alt="audio avatar"
-                     width={310}
-                     height={310}
-                   />
-                     <p className="text-shadow-lg font-bold text-xl absolute bottom-2 left-2">{album.name}</p>
-                     <p className="absolute bottom-2 right-2">{album.artists[0].name}</p>
-                 </div>
-             </div>
-           ))}
-       </div>
-
-
-
+       <div class="flex flex-col items-center justify-center">
+        <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+          {albumsData &&
+            albumsData.map((album, index) => (
+              <div
+                key={index}
+                className={`pb-3 shadow-lg rounded-xl hover:bg-gray-800 relative border border-gray-800 border-2`}
+                onClick={() => navigateToAlbum(album.id)}
+              >
+                <div className="flex flex-col h-full">
+                  <div className="flex-grow flex items-center justify-center pt-10 pl-12 pr-12">
+                    <Image
+                      className="mx-auto"
+                      src={album.images[0].url}
+                      alt="audio avatar"
+                      width={310}
+                      height={310}
+                    />
+                  </div>
+                  <p className="text-shadow-lg font-bold text-xl text-center">{album.name}</p>
+                  <p className="text-center">{album.artists[0].name}</p>
+                </div>
+              </div>
+            ))}
+        </div>
       <div className="max-w-5xl items-center justify-between font-mono text-sm lg:flex">
         <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
           Get started by editing&nbsp;
@@ -173,8 +141,8 @@ export default function Home() {
             Explore the Next.js 13 playground.
           </p>
         </a>
-
       </div>
-    </main>
+    </div>
+   </main>
   )
 }
