@@ -40,6 +40,17 @@ body {
     justify-content: center;
   }
 
+ .fade-in-up {
+   opacity: 0;
+   transform: translateY(10px); /* Adjust the initial vertical position */
+   transition: opacity 0.3s, transform 0.3s;
+ }
+
+ .fade-in-up.active {
+   opacity: 1;
+   transform: translateY(0);
+ }
+
   /* Define a media query for larger screens */
   @media (min-width: 768px) {
     .wrapper {
