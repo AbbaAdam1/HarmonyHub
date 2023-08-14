@@ -23,13 +23,13 @@
 }
 
 .title {
-  color: #fff;
-  font-weight: 100;
+  color: black;
+  font-weight: 2000;
   font-size: 32px;
   margin-bottom: 0;
   padding: 2px;
   line-height: 37px;
-  background-color: rgba(0,0,0,.8);
+  background-color: #db1818;
 }
 
 /* audio image */
@@ -41,8 +41,8 @@
 }
 
 .audio-image {
-  width: 150px;
-  height: 150px;
+  width: 175px;
+  height: 175px;
   background: #1e1e1e;
 }
 
@@ -72,11 +72,18 @@
   margin-top: 10px;
 }
 
-.controls button, .volume button {
+.controls button {
   border: none;
   background-color: transparent;
-  margin-right: 8px;
+  margin-right: 65px;
   cursor: pointer;
+}
+
+.volume button {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  align-items: right;
 }
 
 button svg {
@@ -86,10 +93,6 @@ button svg {
 .volume {
   display: flex;
   align-items: center;
-}
-
-.volume button {
-  margin: 0;
 }
 
 .progress {
