@@ -85,12 +85,14 @@ const Controls: React.FC<ControlsProps> = ({
   }, [audioRef]);
 
   const previousTrack = () => {
-    if (activeTrackIndex == 0) {
+    if (activeTrackIndex === 0) {
       onTrackChange(tracksNumber - 1);
     } else {
-      onTrackChange((prev) => prev - 1);
+      const newIndex = activeTrackIndex - 1;
+      onTrackChange(newIndex);
     }
   };
+
 
   //volume
   const [volume, setVolume] = useState(60);
