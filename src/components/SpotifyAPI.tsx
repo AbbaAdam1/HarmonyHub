@@ -6,7 +6,11 @@ const clientSecret = 'fc6d9335209c474a89fb02f364bde157';
 
 export interface AlbumData {
   // Define the properties and types of AlbumData here
-  id: string;
+  id: string;,
+  tracks: {
+    items: TrackData[];
+  };
+
 }
 
 export const requestAccessToken = async () => {

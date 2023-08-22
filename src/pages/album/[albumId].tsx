@@ -1,6 +1,7 @@
 import { useRef, useState, useEffect } from 'react';
 import { useRouter } from 'next/router'
 import { fetchSingleAlbumData } from '../../components/SpotifyAPI';
+import { AlbumData } from '../../components/SpotifyAPI';
 import Image from 'next/image';
 
 // import components
@@ -8,13 +9,6 @@ import DisplayTrack from '../../components/DisplayTrack';
 import Controls from '../../components/Controls';
 import ProgressBar from '../../components/ProgressBar';
 import Album from '../../components/Album';
-
-interface AlbumData {
-  tracks: {
-    items: TrackData[];
-  };
-
-}
 
 interface TrackData {
   // Define the properties you use from the track items
