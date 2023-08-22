@@ -55,6 +55,7 @@ export const fetchSingleAlbumData = async (albumId: string) => {
     return albumData;
   } catch (error) {
     console.error('Error:', error);
+    throw error;
   }
 };
 
