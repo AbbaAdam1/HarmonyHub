@@ -65,7 +65,7 @@ const Controls: React.FC<ControlsProps> = ({
   }, [isPlaying, audioRef, repeat]);
 
   useEffect(() => {
-    if (isPlaying && activeTrackIndex !== null) {
+    if (isPlaying && activeTrackIndex !== null && audioRef.current) {
       // If the activeTrackIndex is not null, it means a track is selected, so play it
       audioRef.current.play();
     }
