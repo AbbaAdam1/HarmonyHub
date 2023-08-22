@@ -49,7 +49,7 @@ export const getSingleAlbumData = async (albumId) => {
   }
 };
 
-export const fetchSingleAlbumData = async (albumId) => {
+export const fetchSingleAlbumData = async (albumId: string) => {
   try {
     const albumData = await getSingleAlbumData(albumId);
     return albumData;
@@ -59,7 +59,7 @@ export const fetchSingleAlbumData = async (albumId) => {
 };
 
 // Multiple Albums
-export const getAlbumsData = async (albumIds) => {
+export const getAlbumsData = async (albumIds: string) => {
   try {
     const albumsDataPromises = albumIds.map(async (id) => {
       const response = await axiosInstance.get(`/albums/${id}`);
