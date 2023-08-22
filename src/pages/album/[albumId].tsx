@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from 'react';
 import { useRouter } from 'next/router'
 import { fetchSingleAlbumData } from '../../components/SpotifyAPI';
-import { AlbumData } from '../../components/SpotifyAPI';
+import { SpotifyAlbumData } from '../../components/SpotifyAPI';
 import Image from 'next/image';
 
 // import components
@@ -28,7 +28,7 @@ const AudioPlayer = () => {
 
   const router = useRouter();
   const albumId: string | undefined = router.query.albumId as string | undefined;
-  const [albumData, setAlbumData] = useState<AlbumData | null>(null);
+  const [albumData, setAlbumData] = useState<SpotifyAlbumData | null>(null);
 
   const switchTogglePlayPause = () => {
     setIsPlaying(true);
