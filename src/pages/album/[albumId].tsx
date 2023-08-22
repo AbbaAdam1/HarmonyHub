@@ -9,6 +9,19 @@ import Controls from '../../components/Controls';
 import ProgressBar from '../../components/ProgressBar';
 import Album from '../../components/Album';
 
+interface AlbumData {
+  tracks: {
+    items: TrackData[];
+  };
+}
+
+interface TrackData {
+  // Define the properties you use from the track items
+  id: string;
+  name: string;
+  preview_url: string;
+}
+
 const AudioPlayer = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [timeProgress, setTimeProgress] = useState(0);
@@ -33,7 +46,7 @@ const AudioPlayer = () => {
   useEffect(() => {
     if (albumId) {
       fetchSingleAlbumData(albumId)
-        .then(data => {
+        .then((data: AlbumData) => {
           setAlbumData(data);
           setIsLoading(false);
         })
