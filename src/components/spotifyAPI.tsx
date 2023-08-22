@@ -39,7 +39,7 @@ axiosInstance.interceptors.request.use(async (config) => {
 });
 
 // Single Album
-export const getSingleAlbumData = async (albumId) => {
+export const getSingleAlbumData = async (albumId : string) => {
   try {
     const response = await axiosInstance.get(`/albums/${albumId}`);
     return response.data;
