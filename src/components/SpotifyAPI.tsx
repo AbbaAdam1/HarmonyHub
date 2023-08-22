@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
-import AlbumData from '../pages/album/[albumId]';
+import { AlbumData } from '../types/types';
 
 const clientId = '34980fdd86484119b151be617f1d5444';
 const clientSecret = 'fc6d9335209c474a89fb02f364bde157';
