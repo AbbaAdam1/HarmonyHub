@@ -72,13 +72,13 @@ const Controls: React.FC<ControlsProps> = ({
   }, [activeTrackIndex, audioRef, isPlaying]);
 
   //track control
-  const skipForward = () => {
+  const skipForward = useCallback(() => {
     audioRef.current.currentTime += 5;
-  };
+  }, [audioRef]);
 
-  const skipBackward = () => {
+  const skipBackward = useCallback(() => {
     audioRef.current.currentTime -= 5;
-  };
+  }, [audioRef]);
 
   const previousTrack = () => {
     if (activeTrackIndex == 0) {

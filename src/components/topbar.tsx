@@ -1,5 +1,6 @@
 import React from "react";
 import Image from 'next/image';
+import Link from 'next/link';
 
 const Topbar = () => {
   return (
@@ -21,7 +22,7 @@ const Topbar = () => {
           </p>
         </div>
         <div className="absolute top-0 right-0 flex items-center mr-2">
-          <a href="/" className="flex items-center mt-3">
+          <Link href="/" className="flex items-center mt-3">
             <Image
               src="/home-1-svgrepo-com.svg"
               alt="Home Icon"
@@ -29,7 +30,7 @@ const Topbar = () => {
               height={32}
               className="hover:scale-110 transform transition-transform duration-300"
             />
-          </a>
+          </Link>
         </div>
       </div>
     </div>
