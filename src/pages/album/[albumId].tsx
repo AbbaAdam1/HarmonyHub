@@ -50,10 +50,12 @@ const AudioPlayer = () => {
   };
 
   const nextTrack = () => {
-    if (currentTrackIndex >= albumData.tracks.items.length - 1) {
-      handleTrackChange(0);
-    } else {
-      handleTrackChange((prev: number) => prev + 1);
+    if (albumData && albumData.tracks && albumData.tracks.items) {
+      if (currentTrackIndex >= albumData.tracks.items.length - 1) {
+        handleTrackChange(0);
+      } else {
+        handleTrackChange((prev: number) => prev + 1);
+      }
     }
   };
 
