@@ -10,7 +10,12 @@ export interface AlbumData {
   tracks: {
     items: TrackData[];
   };
+}
 
+interface TrackData {
+  id: string;
+  name: string;
+  preview_url: string;
 }
 
 export const requestAccessToken = async () => {
