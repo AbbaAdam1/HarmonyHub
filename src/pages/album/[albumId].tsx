@@ -13,6 +13,7 @@ interface AlbumData {
   tracks: {
     items: TrackData[];
   };
+
 }
 
 interface TrackData {
@@ -46,7 +47,7 @@ const AudioPlayer = () => {
   useEffect(() => {
     if (albumId) {
       fetchSingleAlbumData(albumId)
-        .then((data: AlbumData) => {
+        .then((data) => {
           setAlbumData(data);
           setIsLoading(false);
         })
