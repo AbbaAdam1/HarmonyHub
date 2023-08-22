@@ -63,7 +63,7 @@ const AudioPlayer = () => {
       if (currentTrackIndex >= albumData.tracks.items.length - 1) {
         handleTrackChange(0);
       } else {
-        handleTrackChange((prev: number) => prev + 1);
+        handleTrackChange(currentTrackIndex + 1);
       }
     }
   };
