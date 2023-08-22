@@ -43,7 +43,7 @@ const AudioPlayer = () => {
       fetchSingleAlbumData(albumId)
         .then((data) => {
           console.log(data)
-          setAlbumData(data as AlbumData);
+          setAlbumData(data as SpotifyAlbumData);
           setIsLoading(false);
         })
         .catch(error => {
