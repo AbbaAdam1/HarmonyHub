@@ -100,7 +100,7 @@ const Controls: React.FC<ControlsProps> = ({
   const [muteVolume, setMuteVolume] = useState(false);
 
   useEffect(() => {
-    const handleKeyDown = (event) => {
+    const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'ArrowRight') {
         skipForward();
       } else if (event.key === 'ArrowLeft') {
