@@ -18,13 +18,13 @@ interface TrackData {
 }
 
 const AudioPlayer = () => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [timeProgress, setTimeProgress] = useState(0);
-  const [duration, setDuration] = useState(0);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [timeProgress, setTimeProgress] = useState<number>(0);
+  const [duration, setDuration] = useState<number>(0);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const progressBarRef = useRef<HTMLInputElement | null>(null);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
+  const [isPlaying, setIsPlaying] = useState<boolean>(false);
+  const [currentTrackIndex, setCurrentTrackIndex] = useState<number>(0);
 
   const router = useRouter();
   const albumId: string | undefined = router.query.albumId as string | undefined;
