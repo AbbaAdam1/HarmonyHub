@@ -43,7 +43,13 @@ const DisplayTrack: React.FC<DisplayTrackProps> = ({
         const imageUrl = albumData.images[0].url;
         try {
           const dominantColor = await getDominantColorFromImage(imageUrl);
-          setDerivedColor(dominantColor);
+          // Convert dominantColor to the expected type [number, number, number]
+          const colorArray: [number, number, number] = [
+            dominantColor[0],
+            dominantColor[1],
+            dominantColor[2],
+          ];
+          setDerivedColor(colorArray);
         } catch (error) {
           console.error("Error retrieving derived color:", error);
         }
