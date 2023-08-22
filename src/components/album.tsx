@@ -1,14 +1,14 @@
 const Album = ({
   albumData,
   togglePlayPause,
-  otherTogglePlayPause,
+  switchTogglePlayPause,
   currentTrackIndex,
   setCurrentTrackIndex,
   onTrackChange,
 }: {
   albumData: any;
   togglePlayPause: () => void;
-  otherTogglePlayPause: () => void;
+  switchTogglePlayPause: () => void;
   currentTrackIndex: number;
   setCurrentTrackIndex: (index: number) => void;
   onTrackChange: (trackIndex: number) => void
@@ -27,16 +27,18 @@ const Album = ({
           {albumData.tracks.items.map((track: any, index: number) => (
             <li key={track.id} className="border-red-400 flex flex-row mb-2">
               <div
+                  data-testid="track-element"
                   onClick={() => {
                   // If the clicked track is already the current track, toggle play/pause
                   if (currentTrackIndex === index) {
                     togglePlayPause();
                   } else {
                     // Otherwise, switch to the new track and start playing it immediately
-                    otherTogglePlayPause(track);
+                    switchTogglePlayPause(track);
                     onTrackChange(index);
                   }
                 }}
+                // Selected track is darker
                 className={`select-none cursor-pointer rounded-md flex flex-1 items-center p-4 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-lg ${
                   currentTrackIndex === index ? 'bg-orange-800' : 'bg-orange-500'
                 }`}

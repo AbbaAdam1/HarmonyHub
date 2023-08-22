@@ -1,50 +1,51 @@
 import { useRef, useState, useEffect } from 'react';
-import { tracks } from '../../components/tracks';
-import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router'
 import { fetchSingleAlbumData } from '../../components/spotifyAPI';
-
-import NoSSRWrapper from "./no-ssr-wrapper";
+import Image from 'next/image';
 
 // import components
-const DisplayTrack = dynamic(() => import('../../components/DisplayTrack'));
-const Controls = dynamic(() => import('../../components/controls'));
-const ProgressBar = dynamic(() => import('../../components/ProgressBar'));
-const Album = dynamic(() => import('../../components/album'));
+import DisplayTrack from '../../components/DisplayTrack';
+import Controls from '../../components/Controls';
+import ProgressBar from '../../components/ProgressBar';
+import Album from '../../components/Album';
 
 const AudioPlayer = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const router = useRouter();
-  const albumId = router.query.albumId;
-  console.log(albumId)
-
-  //const [currentTrack, setCurrentTrack] = useState(tracks[0]);
   const [timeProgress, setTimeProgress] = useState(0);
   const [duration, setDuration] = useState(0);
   const audioRef = useRef();
   const progressBarRef = useRef();
-  const otherTogglePlayPause = () => {
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
+
+  const router = useRouter();
+  const albumId = router.query.albumId;
+  const [albumData, setAlbumData] = useState(null);
+
+  const switchTogglePlayPause = () => {
     setIsPlaying(true);
   };
   const togglePlayPause = () => {
     setIsPlaying((prev) => !prev);
   };
 
-  const [isPlaying, setIsPlaying] = useState(false);
-
-  const [albumData, setAlbumData] = useState(null);
-
+  //Fetch operation occurs when AlbumId is ready
   useEffect(() => {
-    const fetchAlbumData = async () => {
-      const data = await fetchSingleAlbumData(albumId);
-      setAlbumData(data);
-      // Update the component state with the fetched album data
-    };
-
-    fetchAlbumData();
+    if (albumId) {
+      const fetchAlbumData = async () => {
+        try {
+          const data = await fetchSingleAlbumData(albumId);
+          setAlbumData(data);
+          setIsLoading(false);
+        } catch (error) {
+          console.error("Error fetching album data:", error);
+          setAlbumData(null);
+          setIsLoading(false);
+        }
+      };
+      fetchAlbumData();
+    }
   }, [albumId]);
-
-  const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
 
   const handleTrackChange = (trackIndex) => {
     setCurrentTrackIndex(trackIndex);
@@ -58,73 +59,57 @@ const AudioPlayer = () => {
     }
   };
 
-
+  //Loading
   if (!albumData || !albumData.tracks || !albumData.tracks.items || albumData.tracks.items.length === 0) {
     return <div></div>;
   }
-  //const currentTrack = albumData?.tracks?.items[currentTrackIndex];
+
+  // Get the URL of the current track
   const currentTrack = albumData?.tracks?.items[currentTrackIndex]?.preview_url;
-/*
-  if (!albumData) {
-    // Render a placeholder or loading state when albumData is null
-    return <div>Loading...</div>;
-  }
-*/
-  //const [trackIndex, setTrackIndex] = useState(0);
-  //const [currentTrack, setCurrentTrack] = useState(albumData.tracks.items.preview_url);
-  console.log(currentTrackIndex)
-  console.log(currentTrack)
-  //const [currentTrack, setCurrentTrack] = useState(
-  //  albumData.tracks.items[trackIndex]
-  //);
-
-
-  console.log(albumData)
-  console.log("bg-orange-500 bg-opacity-20")
 
   return (
-    <div className="bg-black">
-      <div className="inner">
+    <div>
+      <div className="p-5 pt-20">
         <DisplayTrack
-            {...{
-              currentTrack,
-              audioRef,
-              setDuration,
-              progressBarRef,
-              albumData,
-              currentTrackIndex,
-              nextTrack,
-            }}
-        />
-        <Controls
-            {...{
-              audioRef,
-              progressBarRef,
-              duration,
-              setTimeProgress,
-              togglePlayPause,
-              isPlaying,
-              setIsPlaying,
-              nextTrack,
-              activeTrackIndex: currentTrackIndex,
-              onTrackChange: handleTrackChange,
-              tracksNumber: albumData.tracks.items.length
-            }}
-         />
-        <ProgressBar
-          {...{ audioRef, progressBarRef, timeProgress, duration }}
-          />
-      </div>
-        <Album
           {...{
-            togglePlayPause,
-            otherTogglePlayPause,
+            currentTrack,
+            audioRef,
+            setDuration,
+            progressBarRef,
             albumData,
             currentTrackIndex,
-            setCurrentTrackIndex,
-            onTrackChange: handleTrackChange
+            nextTrack,
           }}
-          />
+        />
+        <Controls
+          {...{
+            audioRef,
+            progressBarRef,
+            duration,
+            setTimeProgress,
+            togglePlayPause,
+            isPlaying,
+            setIsPlaying,
+            nextTrack,
+            activeTrackIndex: currentTrackIndex,
+            onTrackChange: handleTrackChange,
+            tracksNumber: albumData.tracks.items.length,
+          }}
+        />
+        <ProgressBar
+          {...{ audioRef, progressBarRef, timeProgress, duration }}
+        />
+      </div>
+      <Album
+        {...{
+          togglePlayPause,
+          switchTogglePlayPause,
+          albumData,
+          currentTrackIndex,
+          setCurrentTrackIndex,
+          onTrackChange: handleTrackChange,
+        }}
+      />
     </div>
   );
 };
