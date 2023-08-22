@@ -22,7 +22,7 @@ const Home: React.FC = () => {
     fetchData();
   }, []);
 
-  const navigateToAlbum = (albumId) => {
+  const navigateToAlbum = (albumId: string) => {
     router.push(`/album/${albumId}`);
   };
 
