@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from 'react';
 import { useRouter } from 'next/router'
-import { fetchSingleAlbumData } from '../../components/spotifyAPI';
+import { fetchSingleAlbumData } from '../../components/SpotifyAPI';
 import Image from 'next/image';
 
 // import components

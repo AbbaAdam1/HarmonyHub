@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image'
-import { fetchAlbumsData } from '../components/spotifyAPI';
+import { fetchAlbumsData } from '../components/SpotifyAPI';
 
 export default function Home() {
   const [albumsData, setAlbumsData] = useState(null);
