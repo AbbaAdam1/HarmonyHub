@@ -5,7 +5,6 @@ const clientId = '34980fdd86484119b151be617f1d5444';
 const clientSecret = 'fc6d9335209c474a89fb02f364bde157';
 
 export interface SpotifyAlbumData {
-  // Define the properties and types of AlbumData here
   id: string;
   tracks: {
     items: TrackData[];
@@ -20,6 +19,7 @@ interface TrackData {
   id: string;
   name: string;
   preview_url: string;
+  duration_ms: number;
 }
 
 export const requestAccessToken = async () => {

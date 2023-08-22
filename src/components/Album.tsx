@@ -18,8 +18,8 @@ interface AlbumData {
 interface TrackType {
   id: string;
   name: string;
+  preview_url: string;
   duration_ms: number;
-  // Add other properties if needed
 }
 
 const Album: React.FC<AlbumProps> = ({
