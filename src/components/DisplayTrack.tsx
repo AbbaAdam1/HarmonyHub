@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { BsMusicNoteBeamed } from 'react-icons/bs';
-import { getDominantColorFromImage } from './colorUtils';
+import { getDominantColorFromImage } from './Colorutils';
 
 interface DisplayTrackProps {
   currentTrack: string;
