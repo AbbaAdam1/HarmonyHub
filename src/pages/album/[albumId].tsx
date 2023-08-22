@@ -48,7 +48,8 @@ const AudioPlayer = () => {
     if (albumId) {
       fetchSingleAlbumData(albumId)
         .then((data) => {
-          setAlbumData(data);
+          console.log(data)
+          setAlbumData(data as AlbumData);
           setIsLoading(false);
         })
         .catch(error => {
