@@ -18,6 +18,7 @@ interface AlbumData {
   name: string;
   artists: { name: string }[];
   tracks: { items: { name: string }[] };
+  external_urls: { spotify: string };
 }
 
 const DisplayTrack: React.FC<DisplayTrackProps> = ({
