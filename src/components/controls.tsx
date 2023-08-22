@@ -44,6 +44,10 @@ const Controls: React.FC<ControlsProps> = ({
     if (audioRef.current && progressBarRef.current) {
       const currentTime = audioRef.current.currentTime;
       setTimeProgress(currentTime);
+
+      const progressValue = parseFloat(progressBarRef.current.value);
+      const progressPercentage = (progressValue / duration) * 100;
+
       progressBarRef.current.value = currentTime.toString();
       progressBarRef.current.style.setProperty(
         '--range-progress',
