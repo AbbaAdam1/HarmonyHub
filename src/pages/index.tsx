@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image'
 import { fetchAlbumsData } from '../components/SpotifyAPI';
+import { SpotifyAlbumData } from '../components/SpotifyAPI';
 
 const Home: React.FC = () => {
   const [albumsData, setAlbumsData] = useState<SpotifyAlbumData[] | null>(null);
