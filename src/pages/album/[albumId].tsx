@@ -20,7 +20,7 @@ const AudioPlayer = () => {
 
   const router = useRouter();
   const albumId: string | undefined = router.query.albumId as string | undefined;
-  const [albumData, setAlbumData] = useState(null);
+  const [albumData, setAlbumData] = useState<AlbumData | null>(null);
 
   const switchTogglePlayPause = () => {
     setIsPlaying(true);

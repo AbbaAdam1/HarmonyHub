@@ -49,7 +49,7 @@ export const getSingleAlbumData = async (albumId : string) => {
   }
 };
 
-export const fetchSingleAlbumData = async (albumId: string) => {
+export const fetchSingleAlbumData = async (albumId: string): Promise<AlbumData> => {
   try {
     const albumData = await getSingleAlbumData(albumId);
     return albumData;
