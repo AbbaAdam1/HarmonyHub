@@ -11,7 +11,7 @@ const Home: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await fetchAlbumsData();
+        const data: SpotifyAlbumData[] = await fetchAlbumsData();
         setAlbumsData(data);
       } catch (error) {
         console.error('Error fetching albums data:', error);
