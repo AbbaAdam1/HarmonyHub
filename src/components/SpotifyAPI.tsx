@@ -1,9 +1,13 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
-import { AlbumData } from '../types/types.ts';
 
 const clientId = '34980fdd86484119b151be617f1d5444';
 const clientSecret = 'fc6d9335209c474a89fb02f364bde157';
+
+export interface AlbumData {
+  // Define the properties and types of AlbumData here
+  id: string;
+}
 
 export const requestAccessToken = async () => {
   const data = new URLSearchParams();
