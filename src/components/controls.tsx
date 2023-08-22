@@ -1,40 +1,45 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { icon } from '@fortawesome/fontawesome-svg-core/import.macro'
-
-// icons
-import {
-  IoPlayBackSharp,
-  IoPlayForwardSharp,
-  IoPlaySkipBackSharp,
-  IoPlaySkipForwardSharp,
-  IoPlaySharp,
-  IoPauseSharp,
-} from 'react-icons/io5';
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCirclePlay, faCirclePause, faForward, faStepForward, faBackward, faStepBackward, faVolumeUp } from '@fortawesome/free-solid-svg-icons';
-import {
-  IoMdVolumeHigh,
-  IoMdVolumeOff,
-  IoMdVolumeLow,
-} from 'react-icons/io';
+import { faCirclePlay,
+         faCirclePause,
+         faForward,
+         faStepForward,
+         faBackward,
+         faStepBackward,
+         faVolumeLow,
+         faVolumeHigh,
+         faVolumeXmark } from '@fortawesome/free-solid-svg-icons';
 
+interface ControlsProps {
+  audioRef: React.RefObject<HTMLAudioElement>;
+  progressBarRef: React.RefObject<HTMLInputElement>;
+  duration: number;
+  setTimeProgress: (time: number) => void;
+  togglePlayPause: () => void;
+  isPlaying: boolean;
+  setIsPlaying: React.Dispatch<React.SetStateAction<boolean>>;
+  activeTrackIndex: number | null;
+  onTrackChange: (index: number) => void;
+  nextTrack: () => void;
+  tracksNumber: number;
+}
 
-const Controls = ({
-    audioRef,
-    progressBarRef,
-    duration,
-    setTimeProgress,
-              togglePlayPause,
-              isPlaying,
-              setIsPlaying,
-              activeTrackIndex,
-              onTrackChange,
-              nextTrack,
-              tracksNumber,
-    }) => {
-  const playAnimationRef = useRef();
+const Controls: React.FC<ControlsProps> = ({
+  audioRef,
+  progressBarRef,
+  duration,
+  setTimeProgress,
+  togglePlayPause,
+  isPlaying,
+  setIsPlaying,
+  activeTrackIndex,
+  onTrackChange,
+  nextTrack,
+  tracksNumber,
+}) => {
+  const playAnimationRef = useRef<number>();
 
+  //progressbar
   const repeat = useCallback(() => {
     if (audioRef.current) {
       const currentTime = audioRef.current.currentTime;
@@ -49,6 +54,7 @@ const Controls = ({
     }
   }, [audioRef, duration, progressBarRef, setTimeProgress]);
 
+  //playing
   useEffect(() => {
     if (isPlaying && audioRef.current) {
       audioRef.current.play();
@@ -58,7 +64,6 @@ const Controls = ({
     playAnimationRef.current = requestAnimationFrame(repeat);
   }, [isPlaying, audioRef, repeat]);
 
-  // New useEffect to handle track changes
   useEffect(() => {
     if (isPlaying && activeTrackIndex !== null) {
       // If the activeTrackIndex is not null, it means a track is selected, so play it
@@ -66,6 +71,7 @@ const Controls = ({
     }
   }, [activeTrackIndex, audioRef, isPlaying]);
 
+  //track control
   const skipForward = () => {
     audioRef.current.currentTime += 5;
   };
@@ -82,6 +88,7 @@ const Controls = ({
     }
   };
 
+  //volume
   const [volume, setVolume] = useState(60);
   const [muteVolume, setMuteVolume] = useState(false);
 
@@ -113,37 +120,70 @@ const Controls = ({
     }
   }, [volume, audioRef, muteVolume]);
 
-
-    return (
-      <div className="flex justify-center relative">
-        <div className="space-x-4 sm:space-x-8 md:space-x-16 lg:space-x-20 pt-8 xl:pt-4">
-          <button className="hover:scale-110 transform transition-transform duration-300" onClick={previousTrack}>
-            <FontAwesomeIcon icon={faStepBackward} size="lg"/>
-          </button>
-          <button className="hover:scale-110 transform transition-transform duration-300" onClick={skipBackward}>
-             <FontAwesomeIcon icon={faBackward} size="lg"/>
-          </button>
-
-          <button className="hover:scale-110 transform transition-transform duration-300" onClick={togglePlayPause}>
-            {isPlaying ? <FontAwesomeIcon icon={faCirclePause} beatFade size="2xl" style={{color: "#F97316",}} /> :
-                         <FontAwesomeIcon icon={faCirclePlay} size="2xl" style={{color: "#F97316",}}/> }
-          </button>
-          <button className="hover:scale-110 transform transition-transform duration-300 cursor-pointer" onClick={skipForward}>
-            <FontAwesomeIcon icon={faForward} size="lg"/>
-          </button>
-          <button className="hover:scale-110 transform transition-transform duration-300 cursor-pointer" onClick={nextTrack}>
-            <FontAwesomeIcon icon={faStepForward} size="lg"/>
-          </button>
-        </div>
-
-      <div className="absolute right-0 flex ml-auto items-center space-x-2 pt-2 xl:pt-6">
-        <button onClick={() => setMuteVolume((prev) => !prev)}>
-          {muteVolume || volume < 5 ? (
-            <IoMdVolumeOff />
-          ) : volume < 40 ? (
-            <IoMdVolumeLow />
+  return (
+    <div className="flex justify-center relative">
+      <div className="space-x-4 sm:space-x-8 md:space-x-16 lg:space-x-20 pt-8 xl:pt-4">
+        <button
+          className="hover:scale-110 transform transition-transform duration-300"
+          onClick={previousTrack}
+          aria-label="Previous Track"
+        >
+          <FontAwesomeIcon icon={faStepBackward} size="lg" />
+        </button>
+        <button
+          className="hover:scale-110 transform transition-transform duration-300"
+          onClick={skipBackward}
+          data-testid="skipBackward"
+        >
+          <FontAwesomeIcon icon={faBackward} size="lg" />
+        </button>
+        <button
+          className="hover:scale-110 transform transition-transform duration-300"
+          onClick={togglePlayPause}
+          data-testid="play/pause-button"
+        >
+          {isPlaying ? (
+            <FontAwesomeIcon
+              icon={faCirclePause}
+              beatFade
+              size="2xl"
+              style={{ color: "#F97316" }}
+            />
           ) : (
-            <IoMdVolumeHigh />
+            <FontAwesomeIcon
+              icon={faCirclePlay}
+              size="2xl"
+              style={{ color: "#F97316" }}
+            />
+          )}
+        </button>
+        <button
+          className="hover:scale-110 transform transition-transform duration-300 cursor-pointer"
+          onClick={skipForward}
+          data-testid="skipForward"
+        >
+          <FontAwesomeIcon icon={faForward} size="lg" />
+        </button>
+        <button
+          className="hover:scale-110 transform transition-transform duration-300 cursor-pointer"
+          onClick={nextTrack}
+          aria-label="Next Track"
+        >
+          <FontAwesomeIcon icon={faStepForward} size="lg" />
+        </button>
+      </div>
+
+      <div className="absolute right-0 flex ml-auto items-center space-x-2 pt-2">
+        <button className="hover:scale-110 transform transition-transform duration-300 cursor-pointer"
+                onClick={() => setMuteVolume((prev) => !prev)}
+                aria-label="Mute Button"
+        >
+          {muteVolume || volume === 0 ? (
+            <FontAwesomeIcon icon={faVolumeXmark} size="sm" />
+          ) : volume < 30 ? (
+            <FontAwesomeIcon icon={faVolumeLow} size="sm" />
+          ) : (
+            <FontAwesomeIcon icon={faVolumeHigh} size="sm" />
           )}
         </button>
         <input
@@ -155,10 +195,11 @@ const Controls = ({
           style={{
             background: `linear-gradient(to right, #f50 ${volume}%, #ccc ${volume}%)`,
           }}
+          aria-label="Volume Slider"
         />
       </div>
-      </div>
-    );
+    </div>
+  );
 };
 
 export default Controls;
