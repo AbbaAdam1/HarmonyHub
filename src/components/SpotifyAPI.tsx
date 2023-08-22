@@ -93,7 +93,7 @@ export const getAlbumsData = async (albumIds: string[]) => {
   }
 };
 
-export async function fetchAlbumsData() {
+export async function fetchAlbumsData(): Promise<SpotifyAlbumData[]> {
   try {
     const ids = [
       '5vDVFuzV8aAIymXSkpyJoe',
