@@ -1,19 +1,36 @@
-const Album = ({
+import React from 'react';
+
+interface AlbumProps {
+  albumData: AlbumData;
+  togglePlayPause: () => void;
+  switchTogglePlayPause: (track: TrackType) => void;
+  currentTrackIndex: number;
+  setCurrentTrackIndex: (index: number) => void;
+  onTrackChange: (trackIndex: number) => void;
+}
+
+interface AlbumData {
+  tracks: {
+    items: TrackType[];
+  };
+}
+
+interface TrackType {
+  id: string;
+  name: string;
+  duration_ms: number;
+  // Add other properties if needed
+}
+
+const Album: React.FC<AlbumProps> = ({
   albumData,
   togglePlayPause,
   switchTogglePlayPause,
   currentTrackIndex,
   setCurrentTrackIndex,
   onTrackChange,
-}: {
-  albumData: any;
-  togglePlayPause: () => void;
-  switchTogglePlayPause: () => void;
-  currentTrackIndex: number;
-  setCurrentTrackIndex: (index: number) => void;
-  onTrackChange: (trackIndex: number) => void
 }) => {
-  const msToTime = (duration : number) => {
+  const msToTime = (duration: number): string => {
     const seconds = Math.floor((duration / 1000) % 60);
     const minutes = Math.floor((duration / (1000 * 60)) % 60);
 
@@ -24,11 +41,11 @@ const Album = ({
     <div className="container flex mx-auto w-full items-center border-t border-gray-400">
       {albumData ? (
         <ul className="flex flex-col w-screen p-4">
-          {albumData.tracks.items.map((track: any, index: number) => (
+          {albumData.tracks.items.map((track: TrackType, index: number) => (
             <li key={track.id} className="border-red-400 flex flex-row mb-2">
               <div
-                  data-testid="track-element"
-                  onClick={() => {
+                data-testid="track-element"
+                onClick={() => {
                   // If the clicked track is already the current track, toggle play/pause
                   if (currentTrackIndex === index) {
                     togglePlayPause();
