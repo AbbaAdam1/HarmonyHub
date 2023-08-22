@@ -45,7 +45,7 @@ const AudioPlayer = () => {
     }
   }, [albumId]);
 
-  const handleTrackChange = (trackIndex) => {
+  const handleTrackChange = (trackIndex: number) => {
     setCurrentTrackIndex(trackIndex);
   };
 
@@ -53,7 +53,7 @@ const AudioPlayer = () => {
     if (currentTrackIndex >= albumData.tracks.items.length - 1) {
       handleTrackChange(0);
     } else {
-      handleTrackChange((prev) => prev + 1);
+      handleTrackChange((prev: number) => prev + 1);
     }
   };
 
@@ -63,7 +63,7 @@ const AudioPlayer = () => {
   }
 
   // Get the URL of the current track
-  const currentTrack = albumData?.tracks?.items[currentTrackIndex]?.preview_url;
+  const currentTrack: string | undefined = albumData?.tracks?.items[currentTrackIndex]?.preview_url;
 
   return (
     <div>
