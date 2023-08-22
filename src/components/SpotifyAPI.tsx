@@ -10,6 +10,10 @@ export interface SpotifyAlbumData {
   tracks: {
     items: TrackData[];
   };
+  images: { url: string }[];
+  name: string;
+  artists: { name: string }[];
+  external_urls: { spotify: string };
 }
 
 interface TrackData {

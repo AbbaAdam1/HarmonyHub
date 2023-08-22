@@ -85,7 +85,7 @@ const AudioPlayer = () => {
             audioRef,
             setDuration,
             progressBarRef,
-            albumData,
+            albumData: albumData as SpotifyAlbumData
             currentTrackIndex,
             nextTrack,
           }}

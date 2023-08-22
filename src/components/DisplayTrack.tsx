@@ -8,7 +8,7 @@ interface DisplayTrackProps {
   audioRef: React.RefObject<HTMLAudioElement>;
   setDuration: (duration: number) => void;
   progressBarRef: React.RefObject<HTMLInputElement>;
-  albumData: AlbumData;
+  albumData: SpotifyAlbumData;
   currentTrackIndex: number;
   nextTrack: () => void;
 }
