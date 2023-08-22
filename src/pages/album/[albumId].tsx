@@ -21,7 +21,7 @@ const AudioPlayer = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [timeProgress, setTimeProgress] = useState(0);
   const [duration, setDuration] = useState(0);
-  const audioRef = useRef();
+  const audioRef = useRef<HTMLAudioElement | null>(null);
   const progressBarRef = useRef();
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
