@@ -198,7 +198,7 @@ const Controls: React.FC<ControlsProps> = ({
           min={0}
           max={100}
           value={volume}
-          onChange={(e) => setVolume(e.target.value)}
+          onChange={(e) => setVolume(parseFloat(e.target.value))}
           style={{
             background: `linear-gradient(to right, #f50 ${volume}%, #ccc ${volume}%)`,
           }}
