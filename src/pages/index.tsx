@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { fetchAlbumsData } from '../components/SpotifyAPI';
 
 const Home: React.FC = () => {
-  const [albumsData, setAlbumsData] = useState<AlbumData[] | null>(null);
+  const [albumsData, setAlbumsData] = useState<SpotifyAlbumData[] | null>(null);
   const router = useRouter();
 
   useEffect(() => {
