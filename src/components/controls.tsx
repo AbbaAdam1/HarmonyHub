@@ -87,11 +87,12 @@ const Controls: React.FC<ControlsProps> = ({
   const previousTrack = () => {
     if (activeTrackIndex === 0) {
       onTrackChange(tracksNumber - 1);
-    } else {
+    } else if (activeTrackIndex !== null) {
       const newIndex = activeTrackIndex - 1;
       onTrackChange(newIndex);
     }
   };
+
 
 
   //volume
