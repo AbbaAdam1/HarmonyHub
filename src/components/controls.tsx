@@ -41,7 +41,7 @@ const Controls: React.FC<ControlsProps> = ({
 
   //progressbar
   const repeat = useCallback(() => {
-    if (audioRef.current) {
+    if (audioRef.current && progressBarRef.current) {
       const currentTime = audioRef.current.currentTime;
       setTimeProgress(currentTime);
       progressBarRef.current.value = currentTime;
