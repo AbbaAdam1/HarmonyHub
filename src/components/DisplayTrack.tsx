@@ -34,7 +34,7 @@ const DisplayTrack: React.FC<DisplayTrackProps> = ({
   const onLoadedMetadata = () => {
     const seconds = 30;
     setDuration(seconds);
-    progressBarRef.current!.max = seconds;
+    progressBarRef.current!.max = seconds.toString(); ;
   };
 
   useEffect(() => {
