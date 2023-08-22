@@ -19,7 +19,7 @@ const AudioPlayer = () => {
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
 
   const router = useRouter();
-  const albumId = router.query.albumId;
+  const albumId: string | undefined = router.query.albumId as string | undefined;
   const [albumData, setAlbumData] = useState(null);
 
   const switchTogglePlayPause = () => {
@@ -32,18 +32,16 @@ const AudioPlayer = () => {
   //Fetch operation occurs when AlbumId is ready
   useEffect(() => {
     if (albumId) {
-      const fetchAlbumData = async () => {
-        try {
-          const data = await fetchSingleAlbumData(albumId);
+      fetchSingleAlbumData(albumId)
+        .then(data => {
           setAlbumData(data);
           setIsLoading(false);
-        } catch (error) {
+        })
+        .catch(error => {
           console.error("Error fetching album data:", error);
           setAlbumData(null);
           setIsLoading(false);
-        }
-      };
-      fetchAlbumData();
+        });
     }
   }, [albumId]);
 
