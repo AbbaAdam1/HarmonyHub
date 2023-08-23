@@ -42,7 +42,6 @@ const AudioPlayer = () => {
     if (albumId) {
       fetchSingleAlbumData(albumId)
         .then((data) => {
-          console.log(data)
           setAlbumData(data as SpotifyAlbumData);
           setIsLoading(false);
         })
