@@ -9,10 +9,10 @@ const Topbar = () => {
         <div className="flex items-center flex-col md:flex-row">
           <p className="ml-2 text-xs md:mb-0">Powered by:</p>
           <Image
-            src="/Spotify_Logo_CMYK_Green.png"
+            src="/Spotify_Icon_CMYK_Green.png"
             alt="Spotify Logo"
-            width={100}
-            height={100}
+            width={25}
+            height={25}
             className="ml-2"
           />
         </div>
