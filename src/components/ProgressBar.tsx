@@ -14,7 +14,10 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
   duration,
 }) => {
   const handleProgressChange = () => {
-    audioRef.current.currentTime = progressBarRef.current.value;
+    if (audioRef.current && progressBarRef.current) {
+      const currentTime = parseFloat(progressBarRef.current.value);
+      audioRef.current.currentTime = currentTime;
+    }
   };
 
   const formatTime = (time: number): string => {

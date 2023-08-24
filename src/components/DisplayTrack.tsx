@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { BsMusicNoteBeamed } from 'react-icons/bs';
-import { getDominantColorFromImage } from './colorUtils';
+import { getDominantColorFromImage } from './Colorutils';
 
 interface DisplayTrackProps {
   currentTrack: string;
   audioRef: React.RefObject<HTMLAudioElement>;
   setDuration: (duration: number) => void;
   progressBarRef: React.RefObject<HTMLInputElement>;
-  albumData: AlbumData; // Define the type for albumData
+  albumData: AlbumData;
   currentTrackIndex: number;
   nextTrack: () => void;
 }
@@ -18,6 +18,7 @@ interface AlbumData {
   name: string;
   artists: { name: string }[];
   tracks: { items: { name: string }[] };
+  external_urls: { spotify: string };
 }
 
 const DisplayTrack: React.FC<DisplayTrackProps> = ({
@@ -34,7 +35,7 @@ const DisplayTrack: React.FC<DisplayTrackProps> = ({
   const onLoadedMetadata = () => {
     const seconds = 30;
     setDuration(seconds);
-    progressBarRef.current!.max = seconds;
+    progressBarRef.current!.max = seconds.toString(); ;
   };
 
   useEffect(() => {
@@ -43,7 +44,13 @@ const DisplayTrack: React.FC<DisplayTrackProps> = ({
         const imageUrl = albumData.images[0].url;
         try {
           const dominantColor = await getDominantColorFromImage(imageUrl);
-          setDerivedColor(dominantColor);
+          // Convert dominantColor to the expected type [number, number, number]
+          const colorArray: [number, number, number] = [
+            dominantColor[0],
+            dominantColor[1],
+            dominantColor[2],
+          ];
+          setDerivedColor(colorArray);
         } catch (error) {
           console.error("Error retrieving derived color:", error);
         }

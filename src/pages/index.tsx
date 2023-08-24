@@ -1,22 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image'
-import { fetchAlbumsData } from '../components/spotifyAPI';
+import { fetchAlbumsData } from '../components/SpotifyAPI';
+import { SpotifyAlbumData } from '../components/SpotifyAPI';
 
-export default function Home() {
-  const [albumsData, setAlbumsData] = useState(null);
+const Home: React.FC = () => {
+  const [albumsData, setAlbumsData] = useState<SpotifyAlbumData[] | null>(null);
   const router = useRouter();
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await fetchAlbumsData();
-      setAlbumsData(data);
+      try {
+        const data: SpotifyAlbumData[] = await fetchAlbumsData();
+        setAlbumsData(data);
+      } catch (error) {
+        console.error('Error fetching albums data:', error);
+        setAlbumsData([]);
+      }
     };
 
     fetchData();
   }, []);
 
-  const navigateToAlbum = (albumId) => {
+  const navigateToAlbum = (albumId: string) => {
     router.push(`/album/${albumId}`);
   };
 
@@ -55,3 +61,5 @@ export default function Home() {
    </main>
   )
 }
+
+export default Home;

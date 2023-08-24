@@ -4,6 +4,24 @@ import React, { useState, useEffect } from 'react';
 const clientId = '34980fdd86484119b151be617f1d5444';
 const clientSecret = 'fc6d9335209c474a89fb02f364bde157';
 
+export interface SpotifyAlbumData {
+  id: string;
+  tracks: {
+    items: TrackData[];
+  };
+  images: { url: string }[];
+  name: string;
+  artists: { name: string }[];
+  external_urls: { spotify: string };
+}
+
+interface TrackData {
+  id: string;
+  name: string;
+  preview_url: string;
+  duration_ms: number;
+}
+
 export const requestAccessToken = async () => {
   const data = new URLSearchParams();
   data.append('grant_type', 'client_credentials');
@@ -39,7 +57,7 @@ axiosInstance.interceptors.request.use(async (config) => {
 });
 
 // Single Album
-export const getSingleAlbumData = async (albumId) => {
+export const getSingleAlbumData = async (albumId : string) => {
   try {
     const response = await axiosInstance.get(`/albums/${albumId}`);
     return response.data;
@@ -49,17 +67,18 @@ export const getSingleAlbumData = async (albumId) => {
   }
 };
 
-export const fetchSingleAlbumData = async (albumId) => {
+export const fetchSingleAlbumData = async (albumId: string): Promise<SpotifyAlbumData> => {
   try {
     const albumData = await getSingleAlbumData(albumId);
     return albumData;
   } catch (error) {
     console.error('Error:', error);
+    throw error;
   }
 };
 
 // Multiple Albums
-export const getAlbumsData = async (albumIds) => {
+export const getAlbumsData = async (albumIds: string[]) => {
   try {
     const albumsDataPromises = albumIds.map(async (id) => {
       const response = await axiosInstance.get(`/albums/${id}`);
@@ -74,7 +93,7 @@ export const getAlbumsData = async (albumIds) => {
   }
 };
 
-export async function fetchAlbumsData() {
+export const fetchAlbumsData = async (): Promise<SpotifyAlbumData[]> => {
   try {
     const ids = [
       '5vDVFuzV8aAIymXSkpyJoe',
@@ -88,5 +107,6 @@ export async function fetchAlbumsData() {
     return albumsData;
   } catch (error) {
     console.error('Error:', error);
+    throw error;
   }
-}
+};

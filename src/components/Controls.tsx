@@ -1,14 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCirclePlay,
-         faCirclePause,
-         faForward,
-         faStepForward,
-         faBackward,
-         faStepBackward,
-         faVolumeLow,
-         faVolumeHigh,
-         faVolumeXmark } from '@fortawesome/free-solid-svg-icons';
+import Image from 'next/image';
 
 interface ControlsProps {
   audioRef: React.RefObject<HTMLAudioElement>;
@@ -39,61 +30,61 @@ const Controls: React.FC<ControlsProps> = ({
 }) => {
   const playAnimationRef = useRef<number>();
 
-  //progressbar
   const repeat = useCallback(() => {
-    if (audioRef.current) {
+    if (audioRef.current && progressBarRef.current) {
       const currentTime = audioRef.current.currentTime;
       setTimeProgress(currentTime);
-      progressBarRef.current.value = currentTime;
+      progressBarRef.current.value = currentTime.toString();
       progressBarRef.current.style.setProperty(
         '--range-progress',
-        `${(progressBarRef.current.value / duration) * 100}%`
+        `${(parseFloat(progressBarRef.current.value) / duration) * 100}%`
       );
 
       playAnimationRef.current = requestAnimationFrame(repeat);
     }
   }, [audioRef, duration, progressBarRef, setTimeProgress]);
 
-  //playing
   useEffect(() => {
     if (isPlaying && audioRef.current) {
       audioRef.current.play();
-    } else if(!isPlaying && audioRef.current) {
+    } else if (!isPlaying && audioRef.current) {
       audioRef.current.pause();
     }
     playAnimationRef.current = requestAnimationFrame(repeat);
   }, [isPlaying, audioRef, repeat]);
 
   useEffect(() => {
-    if (isPlaying && activeTrackIndex !== null) {
-      // If the activeTrackIndex is not null, it means a track is selected, so play it
+    if (isPlaying && activeTrackIndex !== null && audioRef.current) {
       audioRef.current.play();
     }
   }, [activeTrackIndex, audioRef, isPlaying]);
 
-  //track control
-  const skipForward = () => {
-    audioRef.current.currentTime += 5;
-  };
+  const skipForward = useCallback(() => {
+    if (audioRef.current) {
+      audioRef.current.currentTime += 5;
+    }
+  }, [audioRef]);
 
-  const skipBackward = () => {
-    audioRef.current.currentTime -= 5;
-  };
+  const skipBackward = useCallback(() => {
+    if (audioRef.current) {
+      audioRef.current.currentTime -= 5;
+    }
+  }, [audioRef]);
 
   const previousTrack = () => {
-    if (activeTrackIndex == 0) {
+    if (activeTrackIndex === 0) {
       onTrackChange(tracksNumber - 1);
-    } else {
-      onTrackChange((prev) => prev - 1);
+    } else if (activeTrackIndex !== null) {
+      const newIndex = activeTrackIndex - 1;
+      onTrackChange(newIndex);
     }
   };
 
-  //volume
   const [volume, setVolume] = useState(60);
   const [muteVolume, setMuteVolume] = useState(false);
 
   useEffect(() => {
-    const handleKeyDown = (event) => {
+    const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'ArrowRight') {
         skipForward();
       } else if (event.key === 'ArrowLeft') {
@@ -128,62 +119,99 @@ const Controls: React.FC<ControlsProps> = ({
           onClick={previousTrack}
           aria-label="Previous Track"
         >
-          <FontAwesomeIcon icon={faStepBackward} size="lg" />
+          <Image
+            src="/backward-step.svg"
+            alt="Previous track"
+            width={30}
+            height={30}
+            className="hover:scale-110 transform transition-transform duration-300"
+          />
         </button>
         <button
           className="hover:scale-110 transform transition-transform duration-300"
           onClick={skipBackward}
           data-testid="skipBackward"
         >
-          <FontAwesomeIcon icon={faBackward} size="lg" />
+          <Image
+            src="/backward.svg"
+            alt="Skip backward"
+            width={30}
+            height={30}
+            className="hover:scale-110 transform transition-transform duration-300"
+          />
         </button>
         <button
-          className="hover:scale-110 transform transition-transform duration-300"
+          className={`hover:scale-110 transform transition-transform duration-300 ${
+            isPlaying ? 'animate-pulse' : ''}`}
           onClick={togglePlayPause}
           data-testid="play/pause-button"
         >
-          {isPlaying ? (
-            <FontAwesomeIcon
-              icon={faCirclePause}
-              beatFade
-              size="2xl"
-              style={{ color: "#F97316" }}
-            />
-          ) : (
-            <FontAwesomeIcon
-              icon={faCirclePlay}
-              size="2xl"
-              style={{ color: "#F97316" }}
-            />
-          )}
+          <Image
+            src={isPlaying ? '/pause.svg' : '/play.svg'}
+            alt={isPlaying ? 'Pause' : 'Play'}
+            width={50}
+            height={50}
+            className="hover:scale-110 transform transition-transform duration-300"
+          />
         </button>
         <button
           className="hover:scale-110 transform transition-transform duration-300 cursor-pointer"
           onClick={skipForward}
           data-testid="skipForward"
         >
-          <FontAwesomeIcon icon={faForward} size="lg" />
+          <Image
+            src="/forward.svg"
+            alt="Skip forward"
+            width={30}
+            height={30}
+            className="hover:scale-110 transform transition-transform duration-300"
+          />
         </button>
         <button
           className="hover:scale-110 transform transition-transform duration-300 cursor-pointer"
           onClick={nextTrack}
           aria-label="Next Track"
         >
-          <FontAwesomeIcon icon={faStepForward} size="lg" />
+          <Image
+            src="/forward-step.svg"
+            alt="Next track"
+            width={30}
+            height={30}
+            className="hover:scale-110 transform transition-transform duration-300"
+          />
         </button>
       </div>
 
       <div className="absolute right-0 flex ml-auto items-center space-x-2 pt-2">
-        <button className="hover:scale-110 transform transition-transform duration-300 cursor-pointer"
-                onClick={() => setMuteVolume((prev) => !prev)}
-                aria-label="Mute Button"
+        <button
+          className="hover:scale-110 transform transition-transform duration-300 cursor-pointer"
+          onClick={() => setMuteVolume((prev) => !prev)}
+          aria-label="Mute Button"
         >
           {muteVolume || volume === 0 ? (
-            <FontAwesomeIcon icon={faVolumeXmark} size="sm" />
+            <Image
+              src="/volume-xmark.svg"
+              alt="Mute volume"
+              width={20}
+              height={20}
+              className="hover:scale-110 transform transition-transform duration-300"
+            />
           ) : volume < 30 ? (
-            <FontAwesomeIcon icon={faVolumeLow} size="sm" />
+            <Image
+              src="/volume-low.svg"
+              alt="Low volume"
+              width={20}
+              height={20}
+              className="hover:scale-110 transform transition-transform duration-300"
+            />
           ) : (
-            <FontAwesomeIcon icon={faVolumeHigh} size="sm" />
+            <Image
+              src="/volume-high.svg"
+              alt="High volume"
+              width={20}
+              height={20}
+              className="hover:scale-110 transform transition-transform duration-300"
+            />
           )}
         </button>
         <input
@@ -191,9 +219,9 @@ const Controls: React.FC<ControlsProps> = ({
           min={0}
           max={100}
           value={volume}
-          onChange={(e) => setVolume(e.target.value)}
+          onChange={(e) => setVolume(parseFloat(e.target.value))}
           style={{
-            background: `linear-gradient(to right, #f50 ${volume}%, #ccc ${volume}%)`,
+            background: `linear-gradient(to right, #f45 ${volume}%, #ccc ${volume}%)`,
           }}
           aria-label="Volume Slider"
         />
