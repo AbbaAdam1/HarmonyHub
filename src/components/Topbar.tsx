@@ -17,12 +17,12 @@ const Topbar = () => {
           />
         </div>
         <div className="absolute top-0 left-0 right-0 bottom-0 flex items-center justify-center">
-          <p className="text-lg font-sans font-bold text-orange-500 text-center">
+          <p className="text-lg font-sans font-bold text-orange-500 text-center ml-6 md:ml-0">
             HarmonyHub
           </p>
         </div>
         <div className="absolute top-0 right-0 flex items-center mr-2">
-          <Link href="/" className="flex items-center mt-3">
+          <Link href="/" className="flex items-center mt-4 md:mt-3">
             <Image
               src="/home.svg"
               alt="Home Icon"
