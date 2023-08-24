@@ -17,7 +17,7 @@ const Topbar = () => {
           />
         </div>
         <div className="absolute top-0 left-0 right-0 bottom-0 flex items-center justify-center">
-          <p className="text-2xl font-sans font-bold text-orange-500 text-center">
+          <p className="text-lg font-sans font-bold text-orange-500 text-center">
             HarmonyHub
           </p>
         </div>
@@ -26,8 +26,8 @@ const Topbar = () => {
             <Image
               src="/home.svg"
               alt="Home Icon"
-              width={36}
-              height={32}
+              width={32}
+              height={28}
               className="hover:scale-110 transform transition-transform duration-300"
             />
           </Link>
