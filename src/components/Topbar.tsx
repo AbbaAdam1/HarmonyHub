@@ -13,7 +13,7 @@ const Topbar = () => {
             alt="Spotify Logo"
             width={25}
             height={25}
-            className="ml-2"
+            className="md:ml-2"
           />
         </div>
         <div className="absolute top-0 left-0 right-0 bottom-0 flex items-center justify-center">
