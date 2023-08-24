@@ -24,7 +24,7 @@ const Topbar = () => {
         <div className="absolute top-0 right-0 flex items-center mr-2">
           <Link href="/" className="flex items-center mt-3">
             <Image
-              src="/home-1-svgrepo-com.svg"
+              src="/home.svg"
               alt="Home Icon"
               width={36}
               height={32}

@@ -11,7 +11,6 @@ import ProgressBar from '../../components/ProgressBar';
 import Album from '../../components/Album';
 
 interface TrackData {
-  // Define the properties you use from the track items
   id: string;
   name: string;
   preview_url: string;
