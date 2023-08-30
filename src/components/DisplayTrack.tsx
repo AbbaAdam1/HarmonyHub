@@ -38,6 +38,7 @@ const DisplayTrack: React.FC<DisplayTrackProps> = ({
     progressBarRef.current!.max = seconds.toString(); ;
   };
 
+ //Receive the dominant color from an album art
   useEffect(() => {
     const loadContent = async () => {
       if (albumData.images && albumData.images.length > 0) {
