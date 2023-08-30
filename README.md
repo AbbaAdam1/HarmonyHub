@@ -2,7 +2,7 @@
 
 Welcome to my app! This project was built using Next.js, TypeScript, and Tailwind. It is a custom-made audio player that uses Spotify API to view and play various albums.
 
-You can view a demo of this project here: [HarmonyHub](https://harmony-gd0yew3mx-abbaadam1.vercel.app/).
+You can view a demo of this project here: [HarmonyHub](https://harmony-i09tjozh0-abbaadam1.vercel.app/).
 
 ## Getting Started
 You can clone this project by running:
