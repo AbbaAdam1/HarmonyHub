@@ -102,6 +102,12 @@ export const fetchAlbumsData = async (): Promise<SpotifyAlbumData[]> => {
       '1c9Sx7XdXuMptGyfCB6hHs',
       '0FZK97MXMm5mUQ8mtudjuK',
       '6f5gAJpM85TE6aQ81h46T5',
+      '27ThgFMUAx3MXLQ297DzWF',
+      '71QyofYesSsRMwFOTafnhB',
+      '5eg56dCpFn32neJak2vk0f',
+      '22PkV1Le9P3X4RY4xtmK0q',
+      '0UMMIkurRUmkruZ3KGBLtG',
+      '1TEsX50DWbhcBbWm0hnJVI'
     ];
     const albumsData = await getAlbumsData(ids);
     return albumsData;
