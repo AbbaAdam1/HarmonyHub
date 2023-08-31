@@ -5,7 +5,7 @@ import Link from 'next/link';
 const Topbar = () => {
   return (
     <div className="max-w-5xl font-mono text-sm lg:flex">
-      <div className="fixed left-0 top-0 w-full flex pl-5 border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-4 pt-4 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit">
+      <div className="fixed left-0 top-0 w-full flex pl-5 border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-4 pt-4 backdrop-blur-2xl border-neutral-800 bg-zinc-800/30 from-inherit">
         <div className="flex items-center flex-col md:flex-row">
           <p className="text-xs md:mb-0">Powered by:</p>
           <Image

@@ -29,7 +29,7 @@ const Home: React.FC = () => {
   return (
    <main>
      <div className="sm:ml-64 sm:mt-10 fixed z-[-1]">
-       <div className="before:rounded-full before:bg-gradient-radial before:from-yellow-300 before:to-transparent before:blur-2xl after:absolute after:h-[700px] after:w-[700px] after:rounded-full after:bg-gradient-radial after:from-orange-300 after:via-orange-500 after:to-transparent after:blur-2xl before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-orange-700 before:dark:opacity-10 after:dark:from-orange-900 after:dark:via-[#ff5b16] after:dark:opacity-40"/>
+       <div className="before:rounded-full before:bg-gradient-radial before:from-yellow-300 before:to-transparent before:blur-2xl after:absolute after:h-[700px] after:w-[700px] after:rounded-full after:bg-gradient-radial after:from-orange-300 after:via-orange-500 after:to-transparent after:blur-2xl before:bg-gradient-to-br before:from-transparent before:to-orange-700 before:opacity-10 after:from-orange-900 after:via-[#ff5b16] after:opacity-40"/>
      </div>
 
      <div className="flex flex-col items-center justify-center pt-12">
