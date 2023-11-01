@@ -12,10 +12,6 @@ const inter = Inter({ subsets: ['latin'] });
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
-      <Head>
-        {/* Add the favicon link */}
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
       <Layout>
         <Component {...pageProps} />
       </Layout>
