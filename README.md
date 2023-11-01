@@ -4,7 +4,7 @@ Welcome to my app! This project was built using Next.js, TypeScript, and Tailwin
 
 This project uses [Color Thief](https://github.com/lokesh/color-thief) to retrieve the dominant color of an album for the album display page.
 
-You can view a demo of this project here: [HarmonyHub](https://harmony-hub-git-master-abbaadam1.vercel.app/).
+You can view a demo of this project here: [HarmonyHub](https://harmony-hub-zeta.vercel.app/).
 
 ## Getting Started
 You can clone this project by running:
