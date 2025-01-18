@@ -9,8 +9,8 @@ const Topbar = () => {
         <div className="flex items-center flex-col md:flex-row">
           <p className="text-xs md:mb-0">Powered by:</p>
           <Image
-            src="/Spotify_Icon_CMYK_Green.png"
-            alt="Spotify Logo"
+            src="/Deezer_Logo.png"
+            alt="Deezer Logo"
             width={25}
             height={25}
             className="md:ml-2"
