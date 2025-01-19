@@ -18,7 +18,7 @@ interface AlbumData {
   name: string;
   artists: { name: string }[];
   tracks: { items: { name: string }[] };
-  external_urls: { spotify: string };
+  external_urls: { deezer: string };
 }
 
 const DisplayTrack: React.FC<DisplayTrackProps> = ({
@@ -71,7 +71,7 @@ const DisplayTrack: React.FC<DisplayTrackProps> = ({
         <div className="flex gap-5">
           <div>
             {albumData.images?.length > 0 ? (
-            <a href={albumData.external_urls.spotify} target="_blank" rel="noopener noreferrer">
+            <a href={albumData.external_urls.deezer} target="_blank" rel="noopener noreferrer">
               <Image
                 src={albumData.images[0].url}
                 width={175}
