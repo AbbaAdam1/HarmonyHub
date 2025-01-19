@@ -2,21 +2,19 @@
 export interface DeezerAlbumData {
   id: string;
   tracks: {
-    data: TrackData[];
+    items: TrackData[];
   };
-  cover_xl: string;
-  title: string;
-  artist: {
-    name: string;
-  };
-  link: string;
+  images: { url: string }[];
+  name: string;
+  artists: { name: string }[];
+  external_urls: { deezer: string };
 }
 
 interface TrackData {
   id: string;
-  title: string;
-  preview: string;
-  duration: number;
+  name: string;
+  preview_url: string;
+  duration_ms: number;
 }
 
 export const getAlbumData = async (albumId: string) => {
@@ -40,7 +38,7 @@ export const getAlbumData = async (albumId: string) => {
       images: [{ url: albumData.cover_xl }],
       name: albumData.title,
       artists: [{ name: albumData.artist.name }],
-      external_urls: { spotify: albumData.link }
+      external_urls: { deezer: albumData.link }
     };
   } catch (error) {
     console.error('Error fetching single album data:', error);

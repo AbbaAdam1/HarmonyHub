@@ -2,16 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image'
 import { fetchAlbumsData } from '../components/DeezerAPI';
-import { SpotifyAlbumData } from '../components/DeezerAPI';
+import { DeezerAlbumData } from '../components/DeezerAPI';
 
 const Home: React.FC = () => {
-  const [albumsData, setAlbumsData] = useState<SpotifyAlbumData[] | null>(null);
+  const [albumsData, setAlbumsData] = useState<DeezerAlbumData[] | null>(null);
   const router = useRouter();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data: SpotifyAlbumData[] = await fetchAlbumsData();
+        const data: DeezerAlbumData[] = await fetchAlbumsData();
         setAlbumsData(data);
       } catch (error) {
         console.error('Error fetching albums data:', error);
