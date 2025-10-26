@@ -112,119 +112,133 @@ const Controls: React.FC<ControlsProps> = ({
   }, [volume, audioRef, muteVolume]);
 
   return (
-    <div className="flex justify-center relative">
-      <div className="space-x-4 sm:space-x-8 md:space-x-16 lg:space-x-20 pt-8 xl:pt-4">
-        <button
-          className="hover:scale-110 transform transition-transform duration-300"
-          onClick={previousTrack}
-          aria-label="Previous Track"
-        >
-          <Image
-            src="/backward-step.svg"
-            alt="Previous track"
-            width={30}
-            height={30}
-            className="hover:scale-110 transform transition-transform duration-300"
+    <div className="relative pt-6 md:pt-0">
+      {/* Volume controls - positioned above on small screens */}
+      <div className="flex justify-center mb-6 md:mb-0 md:absolute md:right-0 md:top-1/2 md:-translate-y-1/2">
+        <div className="flex items-center gap-3 bg-black/30 backdrop-blur-sm px-4 py-2 rounded-full border border-white/20">
+          <button
+            className="group p-1.5 rounded-full hover:bg-white/10 transition-all duration-300"
+            onClick={() => setMuteVolume((prev) => !prev)}
+            aria-label="Mute Button"
+          >
+            {muteVolume || volume === 0 ? (
+              <Image
+                src="/volume-xmark.svg"
+                alt="Mute volume"
+                width={22}
+                height={22}
+                className="group-hover:scale-110 transition-transform duration-300 opacity-90 group-hover:opacity-100"
+              />
+            ) : volume < 30 ? (
+              <Image
+                src="/volume-low.svg"
+                alt="Low volume"
+                width={22}
+                height={22}
+                className="group-hover:scale-110 transition-transform duration-300 opacity-90 group-hover:opacity-100"
+              />
+            ) : (
+              <Image
+                src="/volume-high.svg"
+                alt="High volume"
+                width={22}
+                height={22}
+                className="group-hover:scale-110 transition-transform duration-300 opacity-90 group-hover:opacity-100"
+              />
+            )}
+          </button>
+          <input
+            type="range"
+            min={0}
+            max={100}
+            value={volume}
+            onChange={(e) => setVolume(parseFloat(e.target.value))}
+            className="w-24 h-1.5 rounded-full appearance-none cursor-pointer"
+            style={{
+              background: `linear-gradient(to right, #fb923c ${volume}%, rgba(255, 255, 255, 0.2) ${volume}%)`,
+            }}
+            aria-label="Volume Slider"
           />
-        </button>
-        <button
-          className="hover:scale-110 transform transition-transform duration-300"
-          onClick={skipBackward}
-          data-testid="skipBackward"
-        >
-          <Image
-            src="/backward.svg"
-            alt="Skip backward"
-            width={30}
-            height={30}
-            className="hover:scale-110 transform transition-transform duration-300"
-          />
-        </button>
-        <button
-          className={`hover:scale-110 transform transition-transform duration-300 ${
-            isPlaying ? 'animate-pulse' : ''}`}
-          onClick={togglePlayPause}
-          data-testid="play/pause-button"
-        >
-          <Image
-            src={isPlaying ? '/pause.svg' : '/play.svg'}
-            alt={isPlaying ? 'Pause' : 'Play'}
-            width={50}
-            height={50}
-            className="hover:scale-110 transform transition-transform duration-300"
-          />
-        </button>
-        <button
-          className="hover:scale-110 transform transition-transform duration-300 cursor-pointer"
-          onClick={skipForward}
-          data-testid="skipForward"
-        >
-          <Image
-            src="/forward.svg"
-            alt="Skip forward"
-            width={30}
-            height={30}
-            className="hover:scale-110 transform transition-transform duration-300"
-          />
-        </button>
-        <button
-          className="hover:scale-110 transform transition-transform duration-300 cursor-pointer"
-          onClick={nextTrack}
-          aria-label="Next Track"
-        >
-          <Image
-            src="/forward-step.svg"
-            alt="Next track"
-            width={30}
-            height={30}
-            className="hover:scale-110 transform transition-transform duration-300"
-          />
-        </button>
+        </div>
       </div>
 
-      <div className="absolute right-0 flex ml-auto items-center space-x-2 pt-2">
-        <button
-          className="hover:scale-110 transform transition-transform duration-300 cursor-pointer"
-          onClick={() => setMuteVolume((prev) => !prev)}
-          aria-label="Mute Button"
-        >
-          {muteVolume || volume === 0 ? (
+      {/* Main playback controls */}
+      <div className="flex justify-center relative items-center py-6">
+        <div className="flex items-center gap-4 sm:gap-6 md:gap-8 lg:gap-10">
+          <button
+            className="group p-2 rounded-full hover:bg-white/10 transition-all duration-300"
+            onClick={previousTrack}
+            aria-label="Previous Track"
+          >
             <Image
-              src="/volume-xmark.svg"
-              alt="Mute volume"
-              width={20}
-              height={20}
-              className="hover:scale-110 transform transition-transform duration-300"
+              src="/backward-step.svg"
+              alt="Previous track"
+              width={28}
+              height={28}
+              className="group-hover:scale-110 transition-transform duration-300 opacity-90 group-hover:opacity-100"
             />
-          ) : volume < 30 ? (
+          </button>
+
+          <button
+            className="group p-2 rounded-full hover:bg-white/10 transition-all duration-300"
+            onClick={skipBackward}
+            data-testid="skipBackward"
+          >
             <Image
-              src="/volume-low.svg"
-              alt="Low volume"
-              width={20}
-              height={20}
-              className="hover:scale-110 transform transition-transform duration-300"
+              src="/backward.svg"
+              alt="Skip backward"
+              width={28}
+              height={28}
+              className="group-hover:scale-110 transition-transform duration-300 opacity-90 group-hover:opacity-100"
             />
-          ) : (
+          </button>
+
+          <button
+            className="group relative p-3 transition-all duration-300 hover:scale-110"
+            onClick={togglePlayPause}
+            data-testid="play/pause-button"
+          >
+            {isPlaying && (
+              <span className="absolute inset-1 rounded-full bg-white/20 animate-ping" />
+            )}
+            <span className="absolute inset-0 rounded-full bg-gradient-to-br from-orange-500/30 to-red-500/30 blur-md" />
             <Image
-              src="/volume-high.svg"
-              alt="High volume"
-              width={20}
-              height={20}
-              className="hover:scale-110 transform transition-transform duration-300"
+              src={isPlaying ? '/pause.svg' : '/play.svg'}
+              alt={isPlaying ? 'Pause' : 'Play'}
+              width={40}
+              height={40}
+              className="relative transition-transform duration-300 drop-shadow-lg"
             />
-          )}
-        </button>
-        <input
-          type="range"
-          min={0}
-          max={100}
-          value={volume}
-          onChange={(e) => setVolume(parseFloat(e.target.value))}
-          style={{
-            background: `linear-gradient(to right, #f45 ${volume}%, #ccc ${volume}%)`,
-          }}
-          aria-label="Volume Slider"
-        />
+          </button>
+
+          <button
+            className="group p-2 rounded-full hover:bg-white/10 transition-all duration-300"
+            onClick={skipForward}
+            data-testid="skipForward"
+          >
+            <Image
+              src="/forward.svg"
+              alt="Skip forward"
+              width={28}
+              height={28}
+              className="group-hover:scale-110 transition-transform duration-300 opacity-90 group-hover:opacity-100"
+            />
+          </button>
+
+          <button
+            className="group p-2 rounded-full hover:bg-white/10 transition-all duration-300"
+            onClick={nextTrack}
+            aria-label="Next Track"
+          >
+            <Image
+              src="/forward-step.svg"
+              alt="Next track"
+              width={28}
+              height={28}
+              className="group-hover:scale-110 transition-transform duration-300 opacity-90 group-hover:opacity-100"
+            />
+          </button>
+        </div>
       </div>
     </div>
   );
