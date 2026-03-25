@@ -25,6 +25,15 @@ export const getAlbumData = async (albumId: string) => {
     }
     const albumData = await response.json();
 
+    // Deezer can return an error object with HTTP 200 (e.g. code 800: no data).
+    if (albumData?.error) {
+      throw new Error(`Deezer error for album ${albumId}: ${albumData.error.message ?? 'Unknown error'}`);
+    }
+
+    if (!albumData?.tracks?.data || !albumData?.artist?.name) {
+      throw new Error(`Unexpected Deezer payload for album ${albumId}`);
+    }
+
     return {
       id: albumData.id.toString(),
       tracks: {
@@ -57,14 +66,22 @@ export const fetchSingleAlbumData = async (albumId: string): Promise<DeezerAlbum
 };
 
 export const getAlbumsData = async (albumIds: string[]) => {
-  try {
-    const albumsDataPromises = albumIds.map(id => getAlbumData(id));
-    const albumsData = await Promise.all(albumsDataPromises);
-    return albumsData;
-  } catch (error) {
-    console.error('Error fetching album data:', error);
-    throw error;
+  const albumResults = await Promise.allSettled(albumIds.map((id) => getAlbumData(id)));
+
+  const fulfilledAlbums = albumResults
+    .filter((result): result is PromiseFulfilledResult<DeezerAlbumData> => result.status === 'fulfilled')
+    .map((result) => result.value);
+
+  const rejectedAlbums = albumResults.filter((result) => result.status === 'rejected');
+  if (rejectedAlbums.length > 0) {
+    console.warn(`Skipped ${rejectedAlbums.length} album(s) due to Deezer payload errors.`);
   }
+
+  if (fulfilledAlbums.length === 0) {
+    throw new Error('No albums could be fetched from Deezer');
+  }
+
+  return fulfilledAlbums;
 };
 
 export const fetchAlbumsData = async (): Promise<DeezerAlbumData[]> => {
@@ -75,7 +92,7 @@ export const fetchAlbumsData = async (): Promise<DeezerAlbumData[]> => {
       '298400782',
       '41232611',
       '81797',
-      '12350152',
+      '412317617',
       '68258021',
       '13204564',
       '113976',
