@@ -60,7 +60,16 @@ const Album: React.FC<AlbumProps> = ({
                   currentTrackIndex === index ? 'bg-orange-800' : 'bg-orange-500'
                 }`}
               >
-                <div className="flex flex-col rounded-md w-10 h-10 bg-gray-300 justify-center items-center mr-4">▷</div>
+                <div className="flex flex-col rounded-md w-10 h-10 bg-gray-300 justify-center items-center mr-4">
+                  <svg
+                    aria-hidden="true"
+                    viewBox="0 0 24 24"
+                    className="w-4 h-4 text-gray-900"
+                    fill="currentColor"
+                  >
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                </div>
                 <div className="flex-1 pl-1 mr-16">
                   <div className="font-medium">{track.name}</div>
                 </div>
